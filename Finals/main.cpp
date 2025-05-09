@@ -1,7 +1,9 @@
 #include <iostream>
-#include "display.h"
+#include "game.h"
 
 int main() {
-	display menu;
-	menu.displayMenu();
+	Game game;
+	game.startGame();
+
+	return 0;
 }

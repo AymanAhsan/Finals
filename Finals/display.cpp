@@ -4,56 +4,67 @@
 #include <string>
 #include <conio.h> // https://cplusplus.com/forum/beginner/284909/
 // Input reader
+#include "pokemon.h"
+#include <functional>
 
 using namespace std;
 
-void display::displayMenu() {
-	int choice = 1;
-	int const total_choices = 2;
-	while (true)
-	{
-		//Clear console
-		system("cls"); // https://www.geeksforgeeks.org/clear-console-c-language/
-		cout << "Welcome to Pokemon" << endl;
-		//Tenary operator, if 1st choice is selected, show arrow
-		cout << (choice == 1 ? "-> " : "   ") << "1. Start Game" << endl;
-		cout << (choice == 2 ? "-> " : "   ") << "2. End Game" << endl;
 
+int handleKeyInput(int& choice, int totalChoices, const std::function<void(int)>& renderChoices) {
+	while (true) {
 		int key = _getch();
-		if (key == 72)
-		{
+		if (key == 72) { // Up arrow
 			choice--;
 			if (choice < 1)
-				choice = total_choices;
+				choice = totalChoices;
+
+			renderChoices(choice);
 		}
-		else if (key == 80)
-		{
+		else if (key == 80) { // Down arrow
 			choice++;
-			if (choice > total_choices)
+			if (choice > totalChoices)
 				choice = 1;
+			renderChoices(choice);
 		}
-		else if (key == 13) // Enter key
-		{
-			if (choice == 1)
-			{
-				cout << "Starting game..." << endl;
-				displayStart();
-				break;
-			}
-			else if (choice == 2)
-			{
-				cout << "Exiting game..." << endl;
-				break; // Exit the loop to end the game
-			}
+		else if (key == 13) { // Enter key
+			return choice;
+			
 		}
 	}
 }
 
-void display::displayStart()
+void Display::displayMenu(Player& player) {
+	int choice = 1;
+	const int totalChoices = 2;
+
+	// Define the render function
+	auto renderMenu = [](int currentChoice) {
+		system("cls");
+		cout << "Welcome to Pokemon" << endl;
+		cout << (currentChoice == 1 ? "-> " : "   ") << "1. Start Game" << endl;
+		cout << (currentChoice == 2 ? "-> " : "   ") << "2. End Game" << endl;
+		};
+
+	// Render the initial menu state
+	renderMenu(choice);
+
+	// Handle key input and menu navigation
+	int result = handleKeyInput(choice, totalChoices, renderMenu);
+
+	if (result == 1) {
+		displayStart(player);
+	}
+	else if (result == 2) {
+		cout << "You have selected End Game" << endl;
+		_getch();
+		exit(0);
+	}
+}
+
+void Display::displayStart(Player& player)
 {
 	system("cls");
 	string name;
-	player player;
 	cout << "Welcome to the world of Pokemon!" << endl;
 	cout << "Hello, my name is Professor Maxwell, today marks the first day of your pokemon journey" << endl;
 	cout << "First of all, what was your name again?" << endl;
@@ -63,15 +74,67 @@ void display::displayStart()
 	cout << "Are you ready to start your journey?" << endl;
 	cout << "Press any key to continue..." << endl;
 	_getch();
-	system("cls");
+	 system("cls");
 	cout << "You are now in the world of Pokemon!" << endl;
 	cout << "First, you need to choose your starter Pokemon!" << endl;
 	cout << "Press any key to continue..." << endl;
 	_getch();
 	system("cls");
-	cout << "You have three choices of Pokemon!" << endl;
-	cout << "1. Turtwig" << endl;
-	cout << "2. Chimchar" << endl;
-	cout << "3. Piplup" << endl;
+
+	Pokemon* turtwig = new Pokemon("Turtwig", 5, 20, 20, 10, 5, 5);
+	Pokemon* chimchar = new Pokemon("Chimchar", 5, 20, 20, 10, 5, 5);
+	Pokemon* piplup = new Pokemon("Piplup", 5, 20, 20, 10, 5, 5);
+
+	Pokemon* playerStarter = nullptr;
+	Pokemon* rivalStarter = nullptr;
+	Pokemon* notChose = nullptr;
+	int choice = 1;
+	int const total_choices = 3;
+	auto renderChoices = [](int currentChoice)
+		{
+			system("cls");
+			cout << "Choose your starter Pokemon!" << endl;
+			cout << (currentChoice == 1 ? "-> " : "   ") << "1. Turtwig" << endl;
+			cout << (currentChoice == 2 ? "-> " : "   ") << "2. Chimchar" << endl;
+			cout << (currentChoice == 3 ? "-> " : "   ") << "3. Piplup" << endl;
+		};
+	
+	renderChoices(choice);
+	int key = handleKeyInput(choice, total_choices, renderChoices);
+
+	if (key == 1)
+	{
+		cout << "You have selected Turtwig!" << endl;
+		playerStarter = turtwig;
+		rivalStarter = chimchar;
+		notChose = piplup;
+	}
+	else if (key == 2)
+	{
+		cout << "You have selected Chimchar!" << endl;
+		playerStarter = chimchar;
+		rivalStarter = piplup;
+		notChose = turtwig;
+	}
+	else if (key == 3)
+	{
+		cout << "You have selected Piplup!" << endl;
+		playerStarter = piplup;
+		rivalStarter = turtwig;
+		notChose = chimchar;
+	}
+	else {
+		cout << "Invalid choice, please try again." << endl;
+	}
+
+	//Removes the unused object from memory
+	if (notChose != nullptr)
+	{
+		delete notChose;
+		notChose = nullptr;
+	}
+	
+
+
 
 }

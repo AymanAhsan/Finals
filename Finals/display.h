@@ -1,8 +1,11 @@
 #pragma once
-class display
+#include <iostream>
+#include <string>
+#include "player.h"
+class Display
 {
 public:
-	void displayMenu();
-	void displayStart();
+	void displayMenu(Player& player);
+	void displayStart(Player& player);
 };
 

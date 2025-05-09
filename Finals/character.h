@@ -8,7 +8,7 @@ class character
 {
 private:
 	string name;
-	pokemon* pokemonParty[6]; // Array of pointers to pokemon objects 
+	Pokemon* pokemonParty[6]; // Array of pointers to pokemon objects 
 public:
 	void setName(string name);
 	string getName();

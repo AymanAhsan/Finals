@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-class pokemon
+class Pokemon
 {
 private:
 	string name;
@@ -14,7 +14,7 @@ private:
 	int defensePower;
 	int speed;
 public:
-	pokemon(string name, int level, int health, int maxHealth, int attackPower, int defensePower, int speed)
+	Pokemon(string name, int level, int health, int maxHealth, int attackPower, int defensePower, int speed)
 		: name(name), level(level), health(health), maxHealth(maxHealth), attackPower(attackPower), defensePower(defensePower), speed(speed) {
 	}
 	string getName() { return name; }
