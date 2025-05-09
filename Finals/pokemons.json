@@ -1,0 +1,288 @@
+{
+    "pokemons": [
+        {
+            "name": "Turtwig",
+            "type": "Grass",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Tackle"
+                },
+                {
+                    "level": 5,
+                    "move": "Absorb"
+                }
+            ]
+        },
+        {
+            "name": "Grotle",
+            "type": "Grass",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Razor Leaf"
+                },
+                {
+                    "level": 15,
+                    "move": "Curse"
+                }
+            ]
+        },
+        {
+            "name": "Torterra",
+            "type": "Grass/Ground",
+            "moves": [
+                {
+                    "level": 20,
+                    "move": "Earthquake"
+                },
+                {
+                    "level": 25,
+                    "move": "Wood Hammer"
+                }
+            ]
+        },
+        {
+            "name": "Chimchar",
+            "type": "Fire",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Ember"
+                },
+                {
+                    "level": 5,
+                    "move": "Scratch"
+                }
+            ]
+        },
+        {
+            "name": "Monferno",
+            "type": "Fire/Fighting",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Flame Wheel"
+                },
+                {
+                    "level": 15,
+                    "move": "Mach Punch"
+                }
+            ]
+        },
+        {
+            "name": "Infernape",
+            "type": "Fire/Fighting",
+            "moves": [
+                {
+                    "level": 20,
+                    "move": "Flare Blitz"
+                },
+                {
+                    "level": 25,
+                    "move": "Close Combat"
+                }
+            ]
+        },
+        {
+            "name": "Piplup",
+            "type": "Water",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Pound"
+                },
+                {
+                    "level": 5,
+                    "move": "Bubble"
+                }
+            ]
+
+        },
+        {
+            "name": "Prinplup",
+            "type": "Water",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Aqua Jet"
+                },
+                {
+                    "level": 15,
+                    "move": "Metal Claw"
+                }
+            ]
+        },
+        {
+            "name": "Empoleon",
+            "type": "Water/Steel",
+            "moves": [
+                {
+                    "level": 20,
+                    "move": "Hydro Pump"
+                },
+                {
+                    "level": 25,
+                    "move": "Flash Cannon"
+                }
+            ]
+        },
+        {
+            "name": "caterpie",
+            "type": "bug",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Tackle"
+                },
+                {
+                    "level": 5,
+                    "move": "String Shot"
+                }
+            ]
+        },
+        {
+            "name": "metapod",
+            "type": "bug",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Harden"
+                },
+                {
+                    "level": 15,
+                    "move": "Tackle"
+                }
+            ]
+        },
+        {
+            "name": "butterfree",
+            "type": "bug/flying",
+            "moves": [
+                {
+                    "level": 20,
+                    "move": "Confusion"
+                },
+                {
+                    "level": 25,
+                    "move": "Sleep Powder"
+                }
+            ]
+        },
+        {
+            "name": "Fletchinder",
+            "type": "Fire/Flying",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Tackle"
+                },
+                {
+                    "level": 5,
+                    "move": "Ember"
+                }
+            ]
+        },
+        {
+            "name": "Talonflame",
+            "type": "Fire/Flying",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Flame Charge"
+                },
+                {
+                    "level": 15,
+                    "move": "Aerial Ace"
+                }
+                {
+                    "level": 20,
+                    "move": "Brave Bird"
+                },
+                {
+                    "level": 25,
+                    "move": "Flare Blitz"
+                }
+            ]
+        },
+        {
+            "name": "magicarp",
+            "type": "water",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Splash"
+                },
+                {
+                    "level": 5,
+                    "move": "Tackle"
+                }
+            ]
+        },
+        {
+            "name": "gyarados",
+            "type": "water/flying",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Bite"
+                },
+                {
+                    "level": 15,
+                    "move": "Dragon Rage"
+                },
+                {
+                    "level": 20,
+                    "move": "Hydro Pump"
+                },
+                {
+                    "level": 25,
+                    "move": "Hyper Beam"
+                }
+            ]
+        },
+        {
+            "name": "Ralts",
+            "type": "Psychic/Fairy",
+            "moves": [
+                {
+                    "level": 1,
+                    "move": "Growl"
+                },
+                {
+                    "level": 5,
+                    "move": "Confusion"
+                }
+            ]
+        },
+        {
+            "name": "Kirlia",
+            "type": "Psychic/Fairy",
+            "moves": [
+                {
+                    "level": 10,
+                    "move": "Double Team"
+                },
+                {
+                    "level": 15,
+                    "move": "Psybeam"
+                }
+            ]
+        },
+        {
+            "name": "Gardevoir",
+            "type": "Psychic/Fairy",
+            "moves": [
+                {
+                    "level": 20,
+                    "move": "Psychic"
+                },
+                {
+                    "level": 25,
+                    "move": "Moonblast"
+                }
+            ]
+        }
+        
+    ]
+}

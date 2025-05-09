@@ -63,15 +63,15 @@ void display::displayStart()
 	cout << "Are you ready to start your journey?" << endl;
 	cout << "Press any key to continue..." << endl;
 	_getch();
-r	system("cls");
+	system("cls");
 	cout << "You are now in the world of Pokemon!" << endl;
 	cout << "First, you need to choose your starter Pokemon!" << endl;
 	cout << "Press any key to continue..." << endl;
 	_getch();
 	system("cls");
 	cout << "You have three choices of Pokemon!" << endl;
-	cout << "1. Bulbasaur" << endl;
-	cout << "2. Charmander" << endl;
-	cout << "3. Squirtle" << endl;
+	cout << "1. Turtwig" << endl;
+	cout << "2. Chimchar" << endl;
+	cout << "3. Piplup" << endl;
 
 }
