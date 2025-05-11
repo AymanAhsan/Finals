@@ -3,13 +3,28 @@
 
 using namespace std;
 
-void character::setName(string name)
+void Character::setName(string name)
 {
 	this->name = name;
 
 }
 
-string character::getName()
+string Character::getName()
 {
 	return name;
+}
+
+bool Character::addPokemon(Pokemon* pokemon)
+{
+	if (pokemonCount < 6)
+	{
+		pokemonParty[pokemonCount] = pokemon;
+		pokemonCount++;
+		return true;
+	}
+	else
+	{
+		cout << "Pokemon party is full!" << endl;
+		return false;
+	}
 }

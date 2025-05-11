@@ -131,15 +131,19 @@
     <ClCompile Include="display.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Move.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="pokemon.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="character.h" />
     <ClInclude Include="display.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="Move.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="pokemon.h" />
+    <ClInclude Include="type.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pokemons.json" />

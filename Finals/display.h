@@ -2,10 +2,11 @@
 #include <iostream>
 #include <string>
 #include "player.h"
+#include "character.h"
 class Display
 {
 public:
-	void displayMenu(Player& player);
-	void displayStart(Player& player);
+	void displayMenu(Player& player, Character& rival);
+	void displayStart(Player& player, Character& rival);
 };
 

@@ -1,0 +1,55 @@
+// move.h
+#pragma once
+#include <iostream>
+#include <string>
+#include "type.h"
+
+using namespace std;
+
+
+class Move {
+private:
+    string name;
+    Type type;
+    int power;
+    int accuracy;
+    int pp;
+    int maxPP;
+    string description;
+
+public:
+    Move(string name, Type type, int power, int accuracy, int pp)
+        : name(name), type(type), power(power), accuracy(accuracy), pp(pp), maxPP(pp) {
+    }
+
+    // Getters
+    string getName() const { return name; }
+	Type getType() const { return type; }
+    int getPower() const { return power; }
+    int getAccuracy() const { return accuracy; }
+    int getPP() const { return pp; }
+    int getMaxPP() const { return maxPP; }
+    string getDescription() const { return description; }
+
+    // Setters
+    void setPP(int newPP) { pp = (newPP > maxPP) ? maxPP : newPP; }
+
+    // Use move
+    bool use() {
+        if (pp > 0) {
+            pp--;
+            return true;
+        }
+        return false; // Out of PP
+    }
+
+    // Restore PP
+    void restorePP(int amount = -1) {
+        if (amount < 0) {
+            pp = maxPP; // Full restore
+        }
+        else {
+            pp = min(pp + amount, maxPP);
+        }
+    }
+};

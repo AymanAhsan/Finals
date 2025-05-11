@@ -33,7 +33,7 @@ int handleKeyInput(int& choice, int totalChoices, const std::function<void(int)>
 	}
 }
 
-void Display::displayMenu(Player& player) {
+void Display::displayMenu(Player& player, Character& rival) {
 	int choice = 1;
 	const int totalChoices = 2;
 
@@ -52,7 +52,7 @@ void Display::displayMenu(Player& player) {
 	int result = handleKeyInput(choice, totalChoices, renderMenu);
 
 	if (result == 1) {
-		displayStart(player);
+		displayStart(player, rival);
 	}
 	else if (result == 2) {
 		cout << "You have selected End Game" << endl;
@@ -61,7 +61,7 @@ void Display::displayMenu(Player& player) {
 	}
 }
 
-void Display::displayStart(Player& player)
+void Display::displayStart(Player& player, Character& rival)
 {
 	system("cls");
 	string name;
@@ -133,6 +133,9 @@ void Display::displayStart(Player& player)
 		delete notChose;
 		notChose = nullptr;
 	}
+
+	player.addPokemon(playerStarter);
+	rival.addPokemon(rivalStarter);
 	
 
 

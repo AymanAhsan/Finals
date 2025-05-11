@@ -9,7 +9,7 @@ using namespace std;
 // Player class inherits from character class
 // Player represents You, character represents NPCs
 // Player class has additional attributes and methods specific to the player
-class Player : public character
+class Player : public Character
 {
 private:
 	int pokecoins;
@@ -20,6 +20,5 @@ public:
 	int getPokecoins() { return pokecoins; } // Getter for pokecoins
 	void setBadges(int b) { badges = b; } // Setter for badges
 	int getBadges() { return badges; } // Getter for badges
-	void addPokemon(Pokemon pokemon);
 };
 
