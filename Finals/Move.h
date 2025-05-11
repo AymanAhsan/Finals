@@ -32,7 +32,15 @@ public:
     string getDescription() const { return description; }
 
     // Setters
-    void setPP(int newPP) { pp = (newPP > maxPP) ? maxPP : newPP; }
+    void setPP(int newPP)
+    {
+		if (newPP > maxPP) {
+			pp = maxPP;
+		}
+		else {
+			pp = newPP;
+		}
+    }
 
     // Use move
     bool use() {

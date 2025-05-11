@@ -58,6 +58,6 @@ public:
 			health = maxHealth; // Ensure health doesn't exceed maxHealth
 		}
 	}
-	float calculateTypeEffectiveness(MoveType moveType, Pokemon& target);
+	float calculateTypeEffectiveness(Type moveType, Pokemon& target);
 };
 
