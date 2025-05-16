@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include "type.h"
+#include "include/nlohmann/json.hpp"
+
 
 using namespace std;
 
@@ -30,6 +32,7 @@ public:
     int getPP() const { return pp; }
     int getMaxPP() const { return maxPP; }
     string getDescription() const { return description; }
+    static Move* loadMoveFromJson(const std::string& moveName, const std::string& jsonFilePath);
 
     // Setters
     void setPP(int newPP)

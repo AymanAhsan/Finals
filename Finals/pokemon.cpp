@@ -1,9 +1,12 @@
 #include "Pokemon.h"
 #include "Move.h"
+#include "type.h"
 #include <iostream>
 #include <string>
 #include <vector>
-#include <conio.h> 
+#include <conio.h>
+#include "include/nlohmann/json.hpp"
+#include <fstream> // For file handling
 
 using namespace std;
 
@@ -43,11 +46,11 @@ void Pokemon::learnMove(Move* move) {
 	}
 }
 
-int Pokemon::calculateDamage(int damage, Pokemon& target)
+int Pokemon::calculateDamage(Move move, Pokemon& target)
 {
 	float typeEffectiveness = calculateTypeEffectiveness(move.getType(), target);
 	float stab = 1.0f; // Same Type Attack Bonus - 1.5 if move type matches Pokémon type
-
+	// Standard pokemon calculation)
 	int baseDamage = (2 * level / 5 + 2) * move.getPower() * attackPower / target.getDefensePower() / 50 + 2;
 
 	return static_cast<int>(baseDamage * typeEffectiveness * stab);
@@ -55,12 +58,14 @@ int Pokemon::calculateDamage(int damage, Pokemon& target)
 
 float Pokemon::calculateTypeEffectiveness(Type moveType, Pokemon& target)
 {
-	Type attackType = static_cast<Type>(moveType);
+	Type attackType = moveType;
 	Type defenderType1 = target.getPrimaryType();
 	Type defenderType2 = target.getSecondaryType();
 
 	float effectiveness = 1.0f;
 
+	effectiveness *= getTypeEffectiveness(attackType, defenderType1);
+	// Check if the defender has a secondary type
 	if (defenderType2 != Type::NONE) {
 		effectiveness *= getTypeEffectiveness(attackType, defenderType2);
 	}
@@ -99,4 +104,57 @@ float Pokemon::getTypeEffectiveness(Type attackType, Type defenderType) {
 	// I used claude to generate the table aint no way im doing all that lol
 	// Return the appropriate effectiveness value from the chart
 	return typeChart[static_cast<int>(attackType)][static_cast<int>(defenderType)];
+}
+
+void Pokemon::setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath)
+{
+	try {
+		// Read the JSON file
+		std::ifstream file(pokemonFilePath);
+		if (!file.is_open()) {
+			std::cerr << "Could not open file: " << pokemonFilePath << std::endl;
+			return;
+		}
+
+		// Parse the JSON
+		nlohmann::json pokemonData;
+		file >> pokemonData;
+
+		// Get the pokemon's data by name  
+		std::string name = pokemon->getName();
+		if (!pokemonData.contains(name)) {
+			std::cerr << "Pokemon " << name << " not found in JSON data" << std::endl;
+			return;
+		}
+
+		auto& data = pokemonData[name];
+
+		// Set the Pokemon's type
+		if (data.contains("primaryType")) {
+			std::cout << "Type: " << data["primaryType"] << std::endl;
+			pokemon->setPrimaryType(stringToType(data["primaryType"]));
+		}
+
+		if (data.contains("secondaryType")) {
+			pokemon->setSecondaryType(stringToType(data["secondaryType"]));
+		}
+
+		// Add the Pokemon's default moves
+		if (data.contains("levelMoves")) {
+			for (const auto& levelMove : data["levelMoves"]) {
+				int requiredLevel = levelMove["level"];
+				if (level >= requiredLevel) {  // Only if Pokémon's level is high enough
+					std::string moveName = levelMove["move"];
+					Move* newMove = Move::loadMoveFromJson(moveName, movesJsonPath);
+					if (newMove) {
+						pokemon->learnMove(newMove);
+					}
+				}
+			}
+		}
+
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+	}
 }

@@ -1,6 +1,7 @@
-#import <iostream>
+#include <iostream>
 
-int main() {
+
+int test() {
 	std::cout << "Hello, World!" << std::endl;
 	return 0;
 }

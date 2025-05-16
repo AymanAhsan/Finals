@@ -4,6 +4,7 @@
 #include "Move.h"
 #include "type.h"
 #include <vector>
+#include "include/nlohmann/json.hpp"
 using namespace std;
 
 class Pokemon
@@ -42,7 +43,7 @@ public:
 	Type getPrimaryType() { return primaryType; }
 	Type getSecondaryType() { return secondaryType; }
 	void learnMove(Move* move);
-	int calculateDamage(int damage, Pokemon& target);
+	int calculateDamage(Move move, Pokemon& target);
 	float getTypeEffectiveness(Type attackType, Type defenderType);
 	bool isAlive() { return health > 0; } // Check if the Pokemon is alive
 	bool useMove(int index, Pokemon& target);
@@ -59,5 +60,7 @@ public:
 		}
 	}
 	float calculateTypeEffectiveness(Type moveType, Pokemon& target);
+
+	void setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath);
 };
 

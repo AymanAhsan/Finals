@@ -12,27 +12,24 @@ enum class Type {
 };
 
 // Helper function to convert Type to string
-inline std::string typeToString(Type type) {
-    switch (type) {
-    case Type::NORMAL: return "Normal";
-    case Type::FIRE: return "Fire";
-    case Type::WATER: return "Water";
-    case Type::GRASS: return "Grass";
-    case Type::ELECTRIC: return "Electric";
-    case Type::ICE: return "Ice";
-    case Type::FIGHTING: return "Fighting";
-    case Type::POISON: return "Poison";
-    case Type::GROUND: return "Ground";
-    case Type::FLYING: return "Flying";
-    case Type::PSYCHIC: return "Psychic";
-    case Type::BUG: return "Bug";
-    case Type::ROCK: return "Rock";
-    case Type::GHOST: return "Ghost";
-    case Type::DRAGON: return "Dragon";
-    case Type::DARK: return "Dark";
-    case Type::STEEL: return "Steel";
-    case Type::FAIRY: return "Fairy";
-    case Type::NONE: return "None";
-    default: return "Unknown";
-    }
+inline Type stringToType(const std::string& str) {
+    if (str == "Normal") return Type::NORMAL;
+    if (str == "Fire") return Type::FIRE;
+    if (str == "Water") return Type::WATER;
+    if (str == "Grass") return Type::GRASS;
+    if (str == "Electric") return Type::ELECTRIC;
+    if (str == "Ice") return Type::ICE;
+    if (str == "Fighting") return Type::FIGHTING;
+    if (str == "Poison") return Type::POISON;
+    if (str == "Ground") return Type::GROUND;
+    if (str == "Flying") return Type::FLYING;
+    if (str == "Psychic") return Type::PSYCHIC;
+    if (str == "Bug") return Type::BUG;
+    if (str == "Rock") return Type::ROCK;
+    if (str == "Ghost") return Type::GHOST;
+    if (str == "Dragon") return Type::DRAGON;
+    if (str == "Dark") return Type::DARK;
+    if (str == "Steel") return Type::STEEL;
+    if (str == "Fairy") return Type::FAIRY;
+    return Type::NONE;
 }

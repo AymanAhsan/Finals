@@ -6,7 +6,7 @@
 // Input reader
 #include "pokemon.h"
 #include <functional>
-
+#include "include/nlohmann/json.hpp"
 using namespace std;
 
 
@@ -85,6 +85,10 @@ void Display::displayStart(Player& player, Character& rival)
 	Pokemon* chimchar = new Pokemon("Chimchar", 5, 20, 20, 10, 5, 5);
 	Pokemon* piplup = new Pokemon("Piplup", 5, 20, 20, 10, 5, 5);
 
+	turtwig->setupPokemon(turtwig, "pokemons.json", "moves.json" );
+	chimchar->setupPokemon(chimchar, "pokemons.json", "moves.json" );
+	piplup->setupPokemon(piplup, "pokemons.json", "moves.json" );
+
 	Pokemon* playerStarter = nullptr;
 	Pokemon* rivalStarter = nullptr;
 	Pokemon* notChose = nullptr;
@@ -137,7 +141,5 @@ void Display::displayStart(Player& player, Character& rival)
 	player.addPokemon(playerStarter);
 	rival.addPokemon(rivalStarter);
 	
-
-
 
 }
