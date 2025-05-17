@@ -9,7 +9,7 @@
 #include "include/nlohmann/json.hpp"
 using namespace std;
 
-
+// Choice handler function
 int handleKeyInput(int& choice, int totalChoices, const std::function<void(int)>& renderChoices) {
 	while (true) {
 		int key = _getch();
@@ -41,6 +41,7 @@ void Display::displayMenu(Player& player, Character& rival) {
 	auto renderMenu = [](int currentChoice) {
 		system("cls");
 		cout << "Welcome to Pokemon" << endl;
+		//Ternary operator to check if the current choice is selected
 		cout << (currentChoice == 1 ? "-> " : "   ") << "1. Start Game" << endl;
 		cout << (currentChoice == 2 ? "-> " : "   ") << "2. End Game" << endl;
 		};
@@ -81,10 +82,12 @@ void Display::displayStart(Player& player, Character& rival)
 	_getch();
 	system("cls");
 
+	// Create starter Pokemon
 	Pokemon* turtwig = new Pokemon("Turtwig", 5, 20, 20, 10, 5, 5);
 	Pokemon* chimchar = new Pokemon("Chimchar", 5, 20, 20, 10, 5, 5);
 	Pokemon* piplup = new Pokemon("Piplup", 5, 20, 20, 10, 5, 5);
 
+	// Setup Pokemon data
 	turtwig->setupPokemon(turtwig, "pokemons.json", "moves.json" );
 	chimchar->setupPokemon(chimchar, "pokemons.json", "moves.json" );
 	piplup->setupPokemon(piplup, "pokemons.json", "moves.json" );
