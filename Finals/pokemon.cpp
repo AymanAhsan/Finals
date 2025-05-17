@@ -46,6 +46,7 @@ void Pokemon::learnMove(Move* move) {
 	}
 }
 
+// Function to use a move
 int Pokemon::calculateDamage(Move move, Pokemon& target)
 {
 	float typeEffectiveness = calculateTypeEffectiveness(move.getType(), target);
