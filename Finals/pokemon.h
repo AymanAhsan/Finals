@@ -45,8 +45,6 @@ public:
 	Type getPrimaryType() { return primaryType; }
 	Type getSecondaryType() { return secondaryType; }
 	void learnMove(Move* move);
-	int calculateDamage(Move move, Pokemon& target);
-	float getTypeEffectiveness(Type attackType, Type defenderType);
 	bool isAlive() { return health > 0; } // Check if the Pokemon is alive
 	bool useMove(int index, Pokemon& target);
 	void takeDamage(int damage) {
@@ -61,7 +59,6 @@ public:
 			health = maxHealth; // Ensure health doesn't exceed maxHealth
 		}
 	}
-	float calculateTypeEffectiveness(Type moveType, Pokemon& target);
 
 	void setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath);
 	int calculateXPForLevel(int lvl);
