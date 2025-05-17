@@ -158,3 +158,33 @@ void Pokemon::setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath,
 		std::cerr << "Error parsing JSON: " << e.what() << std::endl;
 	}
 }
+// Formula to calculate XP required for the next level
+int Pokemon::calculateXPForLevel(int lvl) {
+	// XP formula: 50 * level^2
+	return static_cast<int>(50 * std::pow(lvl, 2));
+}
+
+void Pokemon::gainXP(int amount) {
+	std::cout << name << " gained " << amount << " XP!\n";
+	currentXP += amount;
+
+	// Level up if enough XP
+	while (currentXP >= xpToNextLevel) {
+		levelUp();
+	}
+
+	std::cout << name << " is now at " << currentXP << " / " << xpToNextLevel << " XP.\n";
+}
+
+void Pokemon::levelUp() {
+	currentXP -= xpToNextLevel;
+	level++;
+	std::cout << name << " leveled up! Now at level " << level << "!\n";
+	xpToNextLevel = calculateXPForLevel(level + 1);
+	// Optionally: increase stats here
+}
+
+void Pokemon::printStatus() const {
+	std::cout << "Name: " << name << ", Level: " << level
+		<< ", XP: " << currentXP << " / " << xpToNextLevel << "\n";
+}

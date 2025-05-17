@@ -20,6 +20,8 @@ private:
 	vector<Move*> moves;
 	Type primaryType;
 	Type secondaryType;
+	int currentXP;
+	int xpToNextLevel;
 public:
 	Pokemon(string name, int level, int health, int maxHealth, int attackPower, int defensePower, int speed)
 		: name(name), level(level), health(health), maxHealth(maxHealth), attackPower(attackPower), defensePower(defensePower), speed(speed) {
@@ -62,5 +64,9 @@ public:
 	float calculateTypeEffectiveness(Type moveType, Pokemon& target);
 
 	void setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath);
+	int calculateXPForLevel(int lvl);
+	void gainXP(int amount);
+	void levelUp();
+	void printStatus();
 };
 
