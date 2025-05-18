@@ -172,9 +172,13 @@ void Battle::Bag() {
     cin >> choice;
     if (choice == 1) {
         void Potions(int Elixers = 20, int FullHeals = 20, int FullRecoveries = 20) {
-            cout << "Elixers: " << Elixers << "   ";
-            cout << "Full Heals: " << FullHeals << "   ";
-            cout << "Full Recoveries: " << FullRecoveries << endl << endl;
+
+			int elixers = player.getElixers();
+			int fullHeals = player.getFullHeals();
+			int fullRecoveries = player.getFullRecoveries();
+            cout << "Elixers: " << elixers << "   ";
+            cout << "Full Heals: " << fullHeals << "   ";
+            cout << "Full Recoveries: " << fullRecoveries << endl << endl;
             cout << "Which potion will you use?" << endl;
             cout << "1 = Elixer" << endl;
             cout << "2 = Full Heal" << endl;
@@ -183,10 +187,10 @@ void Battle::Bag() {
             int choosePotion;
             cin >> choosePotion;
             if (choosePotion == 1) {
-                if (Elixers > 0) {
+                if (elixers > 0) {
                     cout << "You have chosen an Elixer";
-                    health += 30;
-                    Elixers -= 1;
+                    //layerActivePokemon->addHealth += 30;
+                    Elixers -= 1; //useElixer()
                     return Potions();
                 }
                 else {

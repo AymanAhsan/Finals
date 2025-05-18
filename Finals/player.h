@@ -26,5 +26,15 @@ public:
 	void setBadges(int b) { badges = b; } // Setter for badges
 	int getBadges() { return badges; } // Getter for badges
 	int addPotions(int amount);
+	int addElixers(int amount); // Method to add elixers
+	int addFullHeals(int amount); // Method to add full heals
+	int addFullRecoveries(int amount); // Method to add full recoveries
+	int addPokeballs(int amount); // Method to add pokeballs
+	int addMasterballs(int amount); // Method to add masterballs
+	int getElixers() { return Elixers; } // Getter for elixers
+	int getFullHeals() { return FullHeals; } // Getter for full heals
+	int getFullRecoveries() { return FullRecoveries; } // Getter for full recoveries
+	int getPokeballs() { return Pokeballs; } // Getter for pokeballs
+	int getMasterballs() { return Masterballs; } // Getter for masterballs
 };
 
