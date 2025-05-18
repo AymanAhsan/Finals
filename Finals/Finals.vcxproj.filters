@@ -39,9 +39,6 @@
     <ClCompile Include="Move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Battle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

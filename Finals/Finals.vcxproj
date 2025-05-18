@@ -136,7 +136,6 @@
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="pokemon.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />

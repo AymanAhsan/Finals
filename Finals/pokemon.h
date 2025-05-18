@@ -17,7 +17,7 @@ private:
 	int attackPower;
 	int defensePower;
 	int speed;
-	vector<Move*> moves;
+	vector<Move*> moves; // Vector to hold moves
 	Type primaryType;
 	Type secondaryType;
 	int currentXP;
@@ -32,6 +32,7 @@ public:
 	int getMaxHealth() { return maxHealth; }
 	int getAttackPower() { return attackPower; }
 	int getDefensePower() { return defensePower; }
+	int getMoveCount() { return moves.size(); } // Get the number of moves
 	int getSpeed() { return speed; }
 	Move getMove(int index) { return *moves[index]; }
 	void setName(string name) { this->name = name; }

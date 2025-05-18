@@ -20,6 +20,7 @@ bool Character::addPokemon(Pokemon* pokemon)
 	{
 		pokemonParty[pokemonCount] = pokemon;
 		pokemonCount++;
+
 		return true;
 	}
 	else
