@@ -31,6 +31,7 @@ public:
     int getAccuracy() const { return accuracy; }
     int getPP() const { return pp; }
     int getMaxPP() const { return maxPP; }
+    void decreasePP() { pp--; }
     string getDescription() const { return description; }
     static Move* loadMoveFromJson(const std::string& moveName, const std::string& jsonFilePath);
 

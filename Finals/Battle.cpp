@@ -54,7 +54,117 @@ void Battle::Fight()
     }
 }
 
-void Battle::Bag
+
+void Battle::Bag() {
+    int choice;
+    cout << "1 = Potions" << endl;
+    cout << "2 = Pokeballs" << endl;
+    cout << "3 = Back";
+    cin >> choice;
+    if (choice == 1) {
+        void Potions(int Elixers = 20, int FullHeals = 20, int FullRecoveries = 20){
+            cout << "Elixers: " << Elixers << "   ";
+            cout << "Full Heals: " << FullHeals << "   ";
+            cout << "Full Recoveries: " << FullRecoveries << endl << endl;
+            cout << "Which potion will you use?" << endl;
+            cout << "1 = Elixer" << endl;
+            cout << "2 = Full Heal" << endl;
+            cout << "3 = Full Recovery" << endl;
+            cout << "4 = Back";
+            int choosePotion;
+            cin >> choosePotion;
+            if (choosePotion == 1) {
+                if (Elixers > 0) {
+                    cout << "You have chosen an Elixer";
+                    health += 30;
+                    Elixers -= 1;
+                    return Potions();
+                }
+                else {
+                    cout << "You dont have enough of this item, please choose another option.";
+                    return Potions();
+                }
+            }
+            if (choosePotion == 2) {
+                if (FullHeals > 0) {
+                    cout << "You have chosen a Full heal";
+                    health += maxHealth - health;
+                    FullHeals -= 1;
+                    return Potions();
+                }
+                else {
+                    cout << "You dont have enough of this item, please choose another option.";
+                    return Potions();
+                }
+            }
+            if (choosePotion == 3) {
+                if (FullRecoveries > 0) {
+                    cout << "You have chosen a Full Recovery";
+                    health += maxHealth - health;
+                    FullRecoveries -= 1;
+                }
+                else {
+                    cout << "You dont have enough of this item, please choose another option.";
+                    return Potions();
+                }
+            }
+            if (choosePotion == 4) {
+                return Bag();
+            }
+            else {
+                cout << "Invalid input";
+                return Potions();
+            }
+        }
+    }
+    if (choice == 2) {
+        void Pokeballs(int pokeballs = 50, int masterballs = 1){
+            cout << "Pokeballs: " << Pokeballs << endl;
+            cout << "Masterballs: " << Masterballs << endl << endl;
+            cout << "Which pokeball will you use?" << endl;
+            cout << "1 = Pokeball" << endl;
+            cout << "2 = Masterball" << endl;
+            cout << "3 = Back";
+            int chooseball;
+            cin >> chooseball;
+            if (chooseball == 1) {
+                if (pokeballs > 0) {
+                    cout << "You have chosen a Pokeball";;
+                    pokeballs -= 1;
+                    return Pokeballs();
+                }
+                else {
+                    cout << "You dont have enough of this item, please choose another option.";
+                    return Pokeballs();
+                }
+            }
+            if (chooseball == 2) {
+                if (masterballs > 0) {
+                    cout << "You have chosen a Masterball";
+                    masterballs -= 1;
+                    return Pokeballs();
+                }
+                else {
+                    cout << "You dont have enough of this item, please choose another option.";
+                    return Pokeballs();
+                }
+            }
+            if (choosePotion == 3) {
+                return Bag();
+            }
+            else {
+                cout << "Invalid input";
+                return Pokeballs();
+            }
+        }
+    }
+    if (choice == 3) {
+        return start();
+    }
+    else {
+        cout << "Invalid Input";
+    }
+}
 
 
 // Initialize the static type chart
@@ -132,6 +242,7 @@ void Battle::enemyAttack() {
 	seed = (a * seed + c) % m;  // LCG formula
 	int moveIndex = seed % 4; // Randomly select a move from the enemy's moveset
 
-	enemyActivePokemon->getMove(moveIndex).setPP(enemyActivePokemon->getMove(moveIndex).getPP() - 1); // Decrease PP of the move used
+    enemyActivePokemon->getMove(moveIndex)->decreasePP();
+
 }
 
