@@ -1,15 +1,95 @@
 #include "Battle.h"
 #include "Pokemon.h"
 
+
+bool Battle::isPartyDefeated(Character& character) {
+    // Check if all Pokemon in the party are defeated
+    for (int i = 0; i < character.getPokemonCount(); i++) {
+        if (character.getPokemon(i)->isAlive()) {
+            return false; // At least one Pokemon is still alive
+        }
+    }
+    return true; // All Pokemon are defeated
+}
+
+Pokemon* Battle::getNextAlivePokemon(Character& character) {
+    // Find the next available Pokemon that's still alive
+    for (int i = 0; i < character.getPokemonCount(); i++) {
+        if (character.getPokemon(i)->isAlive()) {
+            return character.getPokemon(i);
+        }
+    }
+    return nullptr; // No alive Pokemon found
+}
+
+void Battle::battleLoop() {
+    bool battleOver = false;
+
+    // Initial Pokemon setup
+    playerActivePokemon = getNextAlivePokemon(player);
+    enemyActivePokemon = getNextAlivePokemon(enemy);
+
+    cout << "A battle has begun between " << player.getName() << " and " << enemy.getName() << "!" << endl;
+    cout << enemy.getName() << " sent out " << enemyActivePokemon->getName() << "!" << endl;
+    cout << "Go, " << playerActivePokemon->getName() << "!" << endl;
+
+    // Main battle loop
+    while (!battleOver) {
+        // Player's turn
+        cout << endl << "--------- " << player.getName() << "'s Turn ---------" << endl;
+        start(); // Player chooses an action
+
+        // Check if enemy Pokemon fainted
+        if (!enemyActivePokemon->isAlive()) {
+            cout << enemyActivePokemon->getName() << " fainted!" << endl;
+
+            // Check if all enemy Pokemon are defeated
+            if (isPartyDefeated(enemy)) {
+                cout << player.getName() << " won the battle!" << endl;
+                battleOver = true;
+                continue;
+            }
+
+            // Enemy sends out next Pokemon
+            enemyActivePokemon = getNextAlivePokemon(enemy);
+            cout << enemy.getName() << " sent out " << enemyActivePokemon->getName() << "!" << endl;
+        }
+
+        // Enemy's turn (only if battle isn't over already)
+        if (!battleOver) {
+            cout << endl << "--------- " << enemy.getName() << "'s Turn ---------" << endl;
+            enemyAttack();
+
+            // Check if player's Pokemon fainted
+            if (!playerActivePokemon->isAlive()) {
+                cout << playerActivePokemon->getName() << " fainted!" << endl;
+
+                // Check if all player's Pokemon are defeated
+                if (isPartyDefeated(player)) {
+                    cout << enemy.getName() << " won the battle!" << endl;
+                    battleOver = true;
+                    continue;
+                }
+
+                // Player must choose next Pokemon
+                cout << "Choose your next Pokemon:" << endl;
+                Switch();
+            }
+        }
+    }
+
+    cout << "Battle ended!" << endl;
+}
+
 void Battle::start()
 {
     
     int choice;
-    cout << "What will " << playerActivePokemon->getName() << " do?";
+    cout << "What will " << playerActivePokemon->getName() << " do?" << endl;
     cout << "1 = Attack" << endl;
     cout << "2 = Bag" << endl;
     cout << "3 = Switch Pokemon" << endl;
-    cout << "4 = Run Away";
+    cout << "4 = Run Away" << endl;
 
     cin >> choice;
 	switch (choice) {
@@ -31,7 +111,6 @@ void Battle::start()
             break;
     }
     // Call the enemyAttack function to simulate the enemy's attack
-    enemyAttack();
     
 
 }
@@ -40,7 +119,7 @@ void Battle::Fight()
 {
     int choice;
 	cout << "Choose a move:" << endl;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < playerActivePokemon->getMoveCount(); i++) {
         cout << i + 1 << ": " << playerActivePokemon->getMove(i).getName() << endl;
 	}
 	cout << "5: Switch Pokemon" << endl;
@@ -54,117 +133,6 @@ void Battle::Fight()
     }
 }
 
-
-void Battle::Bag() {
-    int choice;
-    cout << "1 = Potions" << endl;
-    cout << "2 = Pokeballs" << endl;
-    cout << "3 = Back";
-    cin >> choice;
-    if (choice == 1) {
-        void Potions(int Elixers = 20, int FullHeals = 20, int FullRecoveries = 20){
-            cout << "Elixers: " << Elixers << "   ";
-            cout << "Full Heals: " << FullHeals << "   ";
-            cout << "Full Recoveries: " << FullRecoveries << endl << endl;
-            cout << "Which potion will you use?" << endl;
-            cout << "1 = Elixer" << endl;
-            cout << "2 = Full Heal" << endl;
-            cout << "3 = Full Recovery" << endl;
-            cout << "4 = Back";
-            int choosePotion;
-            cin >> choosePotion;
-            if (choosePotion == 1) {
-                if (Elixers > 0) {
-                    cout << "You have chosen an Elixer";
-                    health += 30;
-                    Elixers -= 1;
-                    return Potions();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Potions();
-                }
-            }
-            if (choosePotion == 2) {
-                if (FullHeals > 0) {
-                    cout << "You have chosen a Full heal";
-                    health += maxHealth - health;
-                    FullHeals -= 1;
-                    return Potions();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Potions();
-                }
-            }
-            if (choosePotion == 3) {
-                if (FullRecoveries > 0) {
-                    cout << "You have chosen a Full Recovery";
-                    health += maxHealth - health;
-                    FullRecoveries -= 1;
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Potions();
-                }
-            }
-            if (choosePotion == 4) {
-                return Bag();
-            }
-            else {
-                cout << "Invalid input";
-                return Potions();
-            }
-        }
-    }
-    if (choice == 2) {
-        void Pokeballs(int pokeballs = 50, int masterballs = 1){
-            cout << "Pokeballs: " << Pokeballs << endl;
-            cout << "Masterballs: " << Masterballs << endl << endl;
-            cout << "Which pokeball will you use?" << endl;
-            cout << "1 = Pokeball" << endl;
-            cout << "2 = Masterball" << endl;
-            cout << "3 = Back";
-            int chooseball;
-            cin >> chooseball;
-            if (chooseball == 1) {
-                if (pokeballs > 0) {
-                    cout << "You have chosen a Pokeball";;
-                    pokeballs -= 1;
-                    return Pokeballs();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Pokeballs();
-                }
-            }
-            if (chooseball == 2) {
-                if (masterballs > 0) {
-                    cout << "You have chosen a Masterball";
-                    masterballs -= 1;
-                    return Pokeballs();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Pokeballs();
-                }
-            }
-            if (choosePotion == 3) {
-                return Bag();
-            }
-            else {
-                cout << "Invalid input";
-                return Pokeballs();
-            }
-        }
-    }
-    if (choice == 3) {
-        return start();
-    }
-    else {
-        cout << "Invalid Input";
-    }
-}
 
 
 // Initialize the static type chart
@@ -221,10 +189,10 @@ int Battle::calculateDamage(Pokemon& attacker, Move& move, Pokemon& target) {
     float stab = 1.0f;
     if (move.getType() == attacker.getPrimaryType() ||
         move.getType() == attacker.getSecondaryType()) {
-        stab = 1.5f; // 50% boost when move type matches Pokémon's type
+        stab = 1.5f; // 50% boost when move type matches PokÃ©mon's type
     }
 
-    // Standard Pokémon damage formula
+    // Standard PokÃ©mon damage formula
     int baseDamage = (2 * attacker.getLevel() / 5 + 2) * move.getPower() *
         attacker.getAttackPower() / target.getDefensePower() / 50 + 2;
 
@@ -240,9 +208,13 @@ void Battle::enemyAttack() {
 	const long long m = 4294967296;
 
 	seed = (a * seed + c) % m;  // LCG formula
-	int moveIndex = seed % 4; // Randomly select a move from the enemy's moveset
-
-    enemyActivePokemon->getMove(moveIndex)->decreasePP();
+    int moveIndex;
+    if (enemyActivePokemon->getMoveCount() < 4){
+        moveIndex = seed % enemyActivePokemon->getMoveCount();// Use the last move if less than 4 moves
+	} else
+	{
+        moveIndex = seed % 4;
+	}
 
 }
 

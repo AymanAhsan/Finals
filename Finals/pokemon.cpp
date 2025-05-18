@@ -8,6 +8,8 @@
 #include "include/nlohmann/json.hpp"
 #include <fstream> // For file handling
 
+#include "Battle.h"
+
 using namespace std;
 
 void Pokemon::learnMove(Move* move) {
@@ -127,5 +129,30 @@ void Pokemon::levelUp() {
 
 bool Pokemon::useMove(int index, Pokemon& target)
 {
+	Move* move = moves[index];
+
+	if (move->getPP() <= 0) {
+		std::cout << name << " doesn't have enough PP to use " << move->getName() << "!" << std::endl;
+		return false;
+	}
+
+	cout << name << " used " << move->getName() << "!" << endl;
+
+	int damage = Battle::calculateDamage(*this, *move,target);
+	target.takeDamage(damage);
 	
+	float effectiveness = Battle::calculateTypeEffectiveness(move->getType(), target);
+	if (effectiveness > 1.0f) {
+		std::cout << "It's super effective!" << std::endl;
+	}
+	else if (effectiveness < 1.0f && effectiveness > 0) {
+		std::cout << "It's not very effective..." << std::endl;
+	}
+	else if (effectiveness == 0) {
+		std::cout << "It had no effect..." << std::endl;
+	}
+
+	cout << target.getName() << " took " << damage << " damage!" << endl;
+
+	move->use();
 }

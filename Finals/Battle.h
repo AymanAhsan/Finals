@@ -10,6 +10,8 @@ private:
 	Character& enemy;
 	Pokemon* playerActivePokemon; // Use pointers instead of references
 	Pokemon* enemyActivePokemon;  // so they can be updated during battle
+	string battleType;
+	string battleOutcome;
 	static const float typeChart[18][18];
 public:
 	//Constructor
@@ -25,6 +27,9 @@ public:
 	void Switch();
 	void RunAway();
 	void enemyAttack();
+	bool isPartyDefeated(Character& character);
+	Pokemon* getNextAlivePokemon(Character& character);
+	void battleLoop();
 
 	static int calculateDamage(Pokemon& attacker, Move& move, Pokemon& target);
 	static float calculateTypeEffectiveness(Type moveType, Pokemon& target);
