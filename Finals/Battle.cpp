@@ -132,6 +132,6 @@ void Battle::enemyAttack() {
 	seed = (a * seed + c) % m;  // LCG formula
 	int moveIndex = seed % 4; // Randomly select a move from the enemy's moveset
 
-	enemyActivePokemon->getMove(moveIndex).setPP(enemyActivePokemon->getMove(moveIndex).getPP() - 1); // Decrease PP of the move used
+    enemyActivePokemon->useMove(moveIndex, *playerActivePokemon);
 }
 
