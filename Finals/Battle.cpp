@@ -177,19 +177,18 @@ void Battle::Bag() {
 			int fullHeals = player.getFullHeals();
 			int fullRecoveries = player.getFullRecoveries();
             cout << "Elixers: " << elixers << "   ";
-            cout << "Full Heals: " << fullHeals << "   ";
-            cout << "Full Recoveries: " << fullRecoveries << endl << endl;
+            cout << "Full Heals: " << fullHeals << endl << endl;
             cout << "Which potion will you use?" << endl;
             cout << "1 = Elixer" << endl;
             cout << "2 = Full Heal" << endl;
-            cout << "3 = Full Recovery" << endl;
-            cout << "4 = Back";
+            cout << "3 = Back";
             int choosePotion;
             cin >> choosePotion;
             if (choosePotion == 1) {
                 if (elixers > 0) {
                     cout << "You have chosen an Elixer";
                     //layerActivePokemon->addHealth += 30;
+                    playerActivePokemon->restoreHealth (30)
                     Elixers -= 1; //useElixer()
                     return Potions();
                 }
@@ -201,7 +200,7 @@ void Battle::Bag() {
             if (choosePotion == 2) {
                 if (FullHeals > 0) {
                     cout << "You have chosen a Full heal";
-                    health += maxHealth - health;
+                    playerActivePokemon->restoreHealth (playerActivePokemon->getMaxHealth());
                     FullHeals -= 1;
                     return Potions();
                 }
@@ -211,17 +210,6 @@ void Battle::Bag() {
                 }
             }
             if (choosePotion == 3) {
-                if (FullRecoveries > 0) {
-                    cout << "You have chosen a Full Recovery";
-                    health += maxHealth - health;
-                    FullRecoveries -= 1;
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Potions();
-                }
-            }
-            if (choosePotion == 4) {
                 return Bag();
             }
             else {
