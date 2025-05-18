@@ -133,33 +133,6 @@ void Battle::Fight()
     }
 }
 
-void Battle::Switch()
-{
-	cout << "Which Pokemon would you like to switch to?" << endl;
-    for (int i = 0; i < player.getPokemonCount(); i++) {
-        cout << i + 1 << ": " << player.getPokemon(i)->getName() << endl;
-    }
-    int choice;
-    cin >> choice;
-    if (choice > 0 && choice <= player.getPokemonCount()) {
-        playerActivePokemon = player.getPokemon(choice - 1);
-        cout << "Switched to " << playerActivePokemon->getName() << "!" << endl;
-    } else {
-        cout << "Invalid choice. Please try again." << endl;
-	}
-}
-
-void Battle::RunAway()
-{
-	if (battleType == "wild")
-	{
-		cout << "You ran away!" << endl;
-	} else
-	{
-		cout << "You can't run away from a trainer battle!" << endl;
-	}
-}
-
 
 
 // Initialize the static type chart
@@ -216,10 +189,10 @@ int Battle::calculateDamage(Pokemon& attacker, Move& move, Pokemon& target) {
     float stab = 1.0f;
     if (move.getType() == attacker.getPrimaryType() ||
         move.getType() == attacker.getSecondaryType()) {
-        stab = 1.5f; // 50% boost when move type matches Pokémon's type
+        stab = 1.5f; // 50% boost when move type matches PokÃ©mon's type
     }
 
-    // Standard Pokémon damage formula
+    // Standard PokÃ©mon damage formula
     int baseDamage = (2 * attacker.getLevel() / 5 + 2) * move.getPower() *
         attacker.getAttackPower() / target.getDefensePower() / 50 + 2;
 
@@ -243,6 +216,5 @@ void Battle::enemyAttack() {
         moveIndex = seed % 4;
 	}
 
-    enemyActivePokemon->useMove(moveIndex, *playerActivePokemon);
 }
 

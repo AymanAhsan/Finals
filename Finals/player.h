@@ -14,11 +14,17 @@ class Player : public Character
 private:
 	int pokecoins;
 	int badges;
+	int Elixers;
+	int FullHeals;
+	int FullRecoveries;
+	int Pokeballs;
+	int Masterballs;
 public:
 	Player() : pokecoins(0), badges(0) {} // Constructor to initialize pokecoins and badges
 	void setPokecoins(int coins) { pokecoins = coins; } // Setter for pokecoins
 	int getPokecoins() { return pokecoins; } // Getter for pokecoins
 	void setBadges(int b) { badges = b; } // Setter for badges
 	int getBadges() { return badges; } // Getter for badges
+	int addPotions(int amount);
 };
 
