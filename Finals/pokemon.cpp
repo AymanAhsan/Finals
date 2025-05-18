@@ -125,7 +125,7 @@ void Pokemon::levelUp() {
 	// Optionally: increase stats here
 }
 
-void Pokemon::printStatus() const {
-	std::cout << "Name: " << name << ", Level: " << level
-		<< ", XP: " << currentXP << " / " << xpToNextLevel << "\n";
+bool Pokemon::useMove(int index, Pokemon& target)
+{
+	
 }

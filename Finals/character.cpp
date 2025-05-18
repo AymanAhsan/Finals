@@ -28,3 +28,8 @@ bool Character::addPokemon(Pokemon* pokemon)
 		return false;
 	}
 }
+
+Pokemon* Character::getPokemon(int index)
+{
+	return pokemonParty[index];
+}

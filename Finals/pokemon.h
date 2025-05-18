@@ -33,6 +33,7 @@ public:
 	int getAttackPower() { return attackPower; }
 	int getDefensePower() { return defensePower; }
 	int getSpeed() { return speed; }
+	Move getMove(int index) { return *moves[index]; }
 	void setName(string name) { this->name = name; }
 	void setLevel(int level) { this->level = level; }
 	void setHealth(int health) { this->health = health; }

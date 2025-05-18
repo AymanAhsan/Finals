@@ -18,6 +18,7 @@ public:
 			pokemonParty[i] = nullptr; // Initialize all pointers to nullptr
 		}
 	} // Default constructor to initialize pokemonCount and pokemonParty
+	Pokemon* getPokemon(int index);
 	bool addPokemon(Pokemon* pokemon); // Method to add a Pokemon to the party
 	void setName(string name);
 	string getName();

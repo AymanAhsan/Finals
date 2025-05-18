@@ -1,6 +1,62 @@
 #include "Battle.h"
 #include "Pokemon.h"
 
+void Battle::start()
+{
+    
+    int choice;
+    cout << "What will " << playerActivePokemon->getName() << " do?";
+    cout << "1 = Attack" << endl;
+    cout << "2 = Bag" << endl;
+    cout << "3 = Switch Pokemon" << endl;
+    cout << "4 = Run Away";
+
+    cin >> choice;
+	switch (choice) {
+        case 1:
+			cout << "You chose to attack!" << endl;
+            Fight();
+			break;
+        case 2:
+			cout << "You chose to use an item!" << endl;
+            break;
+		case 3:
+            cout << "You chose to switch Pokemon!" << endl;
+			break;
+		case 4:
+        cout << "You chose to run away!" << endl;
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+            break;
+    }
+    // Call the enemyAttack function to simulate the enemy's attack
+    enemyAttack();
+    
+
+}
+
+void Battle::Fight()
+{
+    int choice;
+	cout << "Choose a move:" << endl;
+    for (int i = 0; i < 4; i++) {
+        cout << i + 1 << ": " << playerActivePokemon->getMove(i).getName() << endl;
+	}
+	cout << "5: Switch Pokemon" << endl;
+    cin >> choice;
+    if (choice == 5)
+    {
+        Fight();
+    } else
+    {
+        playerActivePokemon->useMove(choice, *enemyActivePokemon);
+    }
+}
+
+void Battle::Bag
+
+
 // Initialize the static type chart
 const float Battle::typeChart[18][18] = {
     // NOR  FIR  WAT  ELE  GRA  ICE  FIG  POI  GRO  FLY  PSY  BUG  ROC  GHO  DRA  DAR  STE  FAI
@@ -64,3 +120,18 @@ int Battle::calculateDamage(Pokemon& attacker, Move& move, Pokemon& target) {
 
     return static_cast<int>(baseDamage * typeEffectiveness * stab);
 }
+
+void Battle::enemyAttack() {
+	int seed = time(0);
+
+	// LCG parameters
+	const int a = 1664525;
+	const int c = 1013904223;
+	const long long m = 4294967296;
+
+	seed = (a * seed + c) % m;  // LCG formula
+	int moveIndex = seed % 4; // Randomly select a move from the enemy's moveset
+
+	enemyActivePokemon->getMove(moveIndex).setPP(enemyActivePokemon->getMove(moveIndex).getPP() - 1); // Decrease PP of the move used
+}
+
