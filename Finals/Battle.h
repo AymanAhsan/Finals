@@ -24,6 +24,8 @@ public:
 	void start();
 	void Fight();
 	void Bag();
+	void Potions();
+	void Pokeballs();
 	void Switch();
 	void RunAway();
 	void enemyAttack();

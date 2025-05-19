@@ -171,99 +171,108 @@ void Battle::Bag() {
     cout << "3 = Back";
     cin >> choice;
     if (choice == 1) {
-        void Potions(int Elixers = 20, int FullHeals = 20, int FullRecoveries = 20) {
-
-			int elixers = player.getElixers();
-			int fullHeals = player.getFullHeals();
-			int fullRecoveries = player.getFullRecoveries();
-            cout << "Elixers: " << elixers << "   ";
-            cout << "Full Heals: " << fullHeals << endl << endl;
-            cout << "Which potion will you use?" << endl;
-            cout << "1 = Elixer" << endl;
-            cout << "2 = Full Heal" << endl;
-            cout << "3 = Back";
-            int choosePotion;
-            cin >> choosePotion;
-            if (choosePotion == 1) {
-                if (elixers > 0) {
-                    cout << "You have chosen an Elixer";
-                    //layerActivePokemon->addHealth += 30;
-                    playerActivePokemon->restoreHealth (30)
-                    Elixers -= 1; //useElixer()
-                    return Potions();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Potions();
-                }
-            }
-            if (choosePotion == 2) {
-                if (FullHeals > 0) {
-                    cout << "You have chosen a Full heal";
-                    playerActivePokemon->restoreHealth (playerActivePokemon->getMaxHealth());
-                    FullHeals -= 1;
-                    return Potions();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Potions();
-                }
-            }
-            if (choosePotion == 3) {
-                return Bag();
-            }
-            else {
-                cout << "Invalid input";
-                return Potions();
-            }
-        }
+        Potions();
     }
     if (choice == 2) {
-        void Pokeballs(int pokeballs = 50, int masterballs = 1) {
-            cout << "Pokeballs: " << Pokeballs << endl;
-            cout << "Masterballs: " << Masterballs << endl << endl;
-            cout << "Which pokeball will you use?" << endl;
-            cout << "1 = Pokeball" << endl;
-            cout << "2 = Masterball" << endl;
-            cout << "3 = Back";
-            int chooseball;
-            cin >> chooseball;
-            if (chooseball == 1) {
-                if (pokeballs > 0) {
-                    cout << "You have chosen a Pokeball";;
-                    pokeballs -= 1;
-                    return Pokeballs();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Pokeballs();
-                }
-            }
-            if (chooseball == 2) {
-                if (masterballs > 0) {
-                    cout << "You have chosen a Masterball";
-                    masterballs -= 1;
-                    return Pokeballs();
-                }
-                else {
-                    cout << "You dont have enough of this item, please choose another option.";
-                    return Pokeballs();
-                }
-            }
-            if (choosePotion == 3) {
-                return Bag();
-            }
-            else {
-                cout << "Invalid input";
-                return Pokeballs();
-            }
-        }
+        Pokeballs();
     }
     if (choice == 3) {
-        return start();
+        start();
     }
     else {
         cout << "Invalid Input";
+    }
+}
+
+void Battle::Potions() {
+    int elixers = player.getElixers();
+    int fullHeals = player.getFullHeals();
+    cout << "Elixers: " << elixers << "   ";
+    cout << "Full Heals: " << fullHeals << endl << endl;
+    cout << "Which potion will you use?" << endl;
+    cout << "1 = Elixer" << endl;
+    cout << "2 = Full Heal" << endl;
+    cout << "3 = Back";
+    int choosePotion;
+    cin >> choosePotion;
+    if (choosePotion == 1) {
+        if (elixers > 0) {
+            cout << "You have chosen an Elixer";
+            playerActivePokemon->restoreHealth(30);
+            player.useElixers();
+            Potions();
+            return;
+        }
+        else {
+            cout << "You dont have enough of this item, please choose another option.";
+            Potions();
+            return;
+        }
+    }
+    if (choosePotion == 2) {
+        if (fullHeals > 0) {
+            cout << "You have chosen a Full heal";
+            playerActivePokemon->restoreHealth(playerActivePokemon->getMaxHealth());
+            player.useFullHeals();
+            Potions();
+            return;
+        }
+        else {
+            cout << "You dont have enough of this item, please choose another option.";
+            Potions();
+            return;
+        }
+    }
+    if (choosePotion == 3) {
+        Bag();
+        return;
+    }
+    else {
+        cout << "Invalid input";
+        Potions();
+        return;
+    }
+}
+
+void Battle::Pokeballs() {
+    cout << "Pokeballs: " << player.getPokeballs() << endl;
+    cout << "Masterballs: " << player.getMasterballs() << endl << endl;
+    cout << "Which pokeball will you use?" << endl;
+    cout << "1 = Pokeball" << endl;
+    cout << "2 = Masterball" << endl;
+    cout << "3 = Back";
+    int chooseball;
+    cin >> chooseball;
+    if (chooseball == 1) {
+        if (player.getPokeballs() > 0) {
+            cout << "You have chosen a Pokeball";;
+            player.usePokeballs();
+            Pokeballs();
+            return;
+        }
+        else {
+            cout << "You dont have enough of this item, please choose another option.";
+            Pokeballs();
+            return;
+        }
+    }
+    if (chooseball == 2) {
+        if (player.getMasterballs() > 0) {
+            cout << "You have chosen a Masterball";
+            player.useMasterballs();
+            Pokeballs();
+            return;
+        }
+        else {
+            cout << "You dont have enough of this item, please choose another option.";
+            Pokeballs();
+            return;
+        }
+    }
+    else {
+        cout << "Invalid input";
+        Pokeballs();
+        return;
     }
 }
 

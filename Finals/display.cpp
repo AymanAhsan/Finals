@@ -6,6 +6,8 @@
 // Input reader
 #include "pokemon.h"
 #include <functional>
+
+#include "Battle.h"
 #include "include/nlohmann/json.hpp"
 using namespace std;
 
@@ -144,5 +146,19 @@ void Display::displayStart(Player& player, Character& rival)
 	player.addPokemon(playerStarter);
 	rival.addPokemon(rivalStarter);
 	
+	cout << "This is your friend " << rival.getName() << "!" << endl;
+	_getch();
+	cout << rival.getName() << ": Who is this guy" << endl;
+	_getch();
+	cout << "Professor Maxwell: This is " << player.getName() << ", your new friend!" << endl;
+	_getch();
+	cout << rival.getName() << ": This kid is not getting anywhere" << endl;
+	_getch();
+	cout << "Lets battle and see who is the really best" << endl;
+	_getch();
 
+	Battle rivalBattle(player, rival);
+	rivalBattle.battleLoop();
+
+	// Fix battle bug tmrw
 }

@@ -156,4 +156,4 @@ bool Pokemon::useMove(int index, Pokemon& target)
 
 	move->use();
 }
-void Pokemon::Health
+

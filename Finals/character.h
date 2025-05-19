@@ -24,5 +24,6 @@ public:
 	void setName(string name);
 	string getName();
 	int getPokemonCount() { return pokemonParty.size(); }
+
 };
 

@@ -36,5 +36,50 @@ public:
 	int getFullRecoveries() { return FullRecoveries; } // Getter for full recoveries
 	int getPokeballs() { return Pokeballs; } // Getter for pokeballs
 	int getMasterballs() { return Masterballs; } // Getter for masterballs
+	void useElixers(){ // Method to use elixers
+		if (Elixers > 0) {
+			Elixers--;
+			cout << "You used an elixer!" << endl;
+		}
+		else {
+			cout << "You have no elixers!" << endl;
+		}
+	}
+	void useFullHeals(){ // Method to use full heals
+		if (FullHeals > 0) {
+			FullHeals--;
+			cout << "You used a full heal!" << endl;
+		}
+		else {
+			cout << "You have no full heals!" << endl;
+		}
+	}
+	void useFullRecoveries(){ // Method to use full recoveries
+		if (FullRecoveries > 0) {
+			FullRecoveries--;
+			cout << "You used a full recovery!" << endl;
+		}
+		else {
+			cout << "You have no full recoveries!" << endl;
+		}
+	}
+	void usePokeballs(){ // Method to use pokeballs
+		if (Pokeballs > 0) {
+			Pokeballs--;
+			cout << "You used a pokeball!" << endl;
+		}
+		else {
+			cout << "You have no pokeballs!" << endl;
+		}
+	}
+	void useMasterballs(){ // Method to use masterballs
+		if (Masterballs > 0) {
+			Masterballs--;
+			cout << "You used a masterball!" << endl;
+		}
+		else {
+			cout << "You have no masterballs!" << endl;
+		}
+	}
 };
 
