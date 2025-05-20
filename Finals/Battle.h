@@ -24,14 +24,14 @@ public:
 	void start();
 	void Fight();
 	void Bag();
-	void Potions();
-	void Pokeballs();
+	bool Potions();
+	bool Pokeballs();
 	void Switch();
 	void RunAway();
 	void enemyAttack();
 	bool isPartyDefeated(Character& character);
 	Pokemon* getNextAlivePokemon(Character& character);
-	void battleLoop();
+	bool battleLoop();
 
 	static int calculateDamage(Pokemon& attacker, Move& move, Pokemon& target);
 	static float calculateTypeEffectiveness(Type moveType, Pokemon& target);

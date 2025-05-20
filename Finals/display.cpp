@@ -158,7 +158,19 @@ void Display::displayStart(Player& player, Character& rival)
 	_getch();
 
 	Battle rivalBattle(player, rival);
-	rivalBattle.battleLoop();
+	// Determines if you win the rival battle or not
+	if (rivalBattle.battleLoop() == true)
+	{
+		cout << "Looks like you've won this time, " << player.getName() << endl;
+		_getch();
+		cout << "But don't get too cocky" << endl;
+	}  else
+	{
+		cout << "I've won as always" << endl;
+		_getch();
+	}
+
+	
 
 	// Fix battle bug tmrw
 }

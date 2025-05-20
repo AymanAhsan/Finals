@@ -1,4 +1,7 @@
 #include "Battle.h"
+
+#include <conio.h>
+
 #include "Pokemon.h"
 
 
@@ -22,8 +25,9 @@ Pokemon* Battle::getNextAlivePokemon(Character& character) {
     return nullptr; // No alive Pokemon found
 }
 
-void Battle::battleLoop() {
+bool Battle::battleLoop() {
     bool battleOver = false;
+    bool playerWon = false;
 
     // Initial Pokemon setup
     playerActivePokemon = getNextAlivePokemon(player);
@@ -47,6 +51,7 @@ void Battle::battleLoop() {
             if (isPartyDefeated(enemy)) {
                 cout << player.getName() << " won the battle!" << endl;
                 battleOver = true;
+				playerWon = true;
                 continue;
             }
 
@@ -68,6 +73,7 @@ void Battle::battleLoop() {
                 if (isPartyDefeated(player)) {
                     cout << enemy.getName() << " won the battle!" << endl;
                     battleOver = true;
+                    playerWon = false;
                     continue;
                 }
 
@@ -79,12 +85,16 @@ void Battle::battleLoop() {
     }
 
     cout << "Battle ended!" << endl;
+	return playerWon; // Return whether the player won or not
 }
 
 void Battle::start()
 {
     
     int choice;
+	cout << endl << "--------- " << player.getName() << "'s Turn ---------" << endl;
+	cout << playerActivePokemon->getName() << " HP: " << playerActivePokemon->getHealth() << "/" << playerActivePokemon->getMaxHealth() << endl;
+	cout << enemyActivePokemon->getName() << " HP: " << enemyActivePokemon->getHealth() << "/" << enemyActivePokemon->getMaxHealth() << endl;
     cout << "What will " << playerActivePokemon->getName() << " do?" << endl;
     cout << "1 = Attack" << endl;
     cout << "2 = Bag" << endl;
@@ -99,9 +109,11 @@ void Battle::start()
 			break;
         case 2:
 			cout << "You chose to use an item!" << endl;
+            Bag();
             break;
 		case 3:
             cout << "You chose to switch Pokemon!" << endl;
+            Switch();
 			break;
 		case 4:
         cout << "You chose to run away!" << endl;
@@ -115,21 +127,23 @@ void Battle::start()
 
 }
 
-void Battle::Fight()
-{
+void Battle::Fight() {
     int choice;
-	cout << "Choose a move:" << endl;
+    cout << "Choose a move:" << endl;
     for (int i = 0; i < playerActivePokemon->getMoveCount(); i++) {
         cout << i + 1 << ": " << playerActivePokemon->getMove(i).getName() << endl;
-	}
-	cout << "5: Switch Pokemon" << endl;
+    }
+    cout << "5: Switch Pokemon" << endl;
     cin >> choice;
-    if (choice == 5)
-    {
+    if (choice == 5) {
         Fight();
-    } else
-    {
-        playerActivePokemon->useMove(choice, *enemyActivePokemon);
+    }
+    else if (choice >= 1 && choice <= playerActivePokemon->getMoveCount()) {
+        playerActivePokemon->useMove(choice - 1, *enemyActivePokemon);
+    }
+    else {
+        cout << "Invalid move choice! Please try again." << endl;
+        Fight();
     }
 }
 
@@ -165,114 +179,119 @@ void Battle::RunAway()
 
 
 void Battle::Bag() {
-    int choice;
-    cout << "1 = Potions" << endl;
-    cout << "2 = Pokeballs" << endl;
-    cout << "3 = Back";
-    cin >> choice;
-    if (choice == 1) {
-        Potions();
-    }
-    if (choice == 2) {
-        Pokeballs();
-    }
-    if (choice == 3) {
-        start();
-    }
-    else {
-        cout << "Invalid Input";
+    bool itemUsed = false;
+    while (!itemUsed) {
+        int choice;
+        cout << "1 = Potions" << endl;
+        cout << "2 = Pokeballs" << endl;
+        cout << "3 = Back" << endl;
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            itemUsed = Potions();
+            break;
+        case 2:
+            itemUsed = Pokeballs();
+            break;
+        case 3:
+            return; // Return to battle menu without using a turn
+        default:
+            cout << "Invalid Input" << endl;
+            break;
+        }
+
+        if (itemUsed) {
+            return; // Item was used, end turn
+        }
     }
 }
 
-void Battle::Potions() {
-    int elixers = player.getElixers();
-    int fullHeals = player.getFullHeals();
-    cout << "Elixers: " << elixers << "   ";
-    cout << "Full Heals: " << fullHeals << endl << endl;
-    cout << "Which potion will you use?" << endl;
-    cout << "1 = Elixer" << endl;
-    cout << "2 = Full Heal" << endl;
-    cout << "3 = Back";
-    int choosePotion;
-    cin >> choosePotion;
-    if (choosePotion == 1) {
-        if (elixers > 0) {
+bool Battle::Potions() {
+    while (true) {
+        int elixers = player.getElixers();
+        int fullHeals = player.getFullHeals();
+        cout << "Elixers: " << elixers << "   ";
+        cout << "Full Heals: " << fullHeals << endl << endl;
+        cout << "Which potion will you use?" << endl;
+        cout << "1 = Elixer" << endl;
+        cout << "2 = Full Heal" << endl;
+        cout << "3 = Back" << endl;
+        int choosePotion;
+        cin >> choosePotion;
+
+        if (choosePotion == 1) {
             cout << "You have chosen an Elixer";
-            playerActivePokemon->restoreHealth(30);
-            player.useElixers();
-            Potions();
-            return;
+            player.useElixers(playerActivePokemon);
+            _getch();
+            return true; // Item was used, end turn
+        }
+        else if (choosePotion == 2) {
+            if (fullHeals > 0) {
+                cout << "You have chosen a Full heal";
+                playerActivePokemon->restoreHealth(playerActivePokemon->getMaxHealth());
+                player.useFullHeals();
+                _getch();
+                return true; // Item was used, end turn
+            }
+            else {
+                cout << "You dont have enough of this item, please choose another option." << endl;
+                _getch();
+            }
+        }
+        else if (choosePotion == 3) {
+            return false; // Return to bag menu
         }
         else {
-            cout << "You dont have enough of this item, please choose another option.";
-            Potions();
-            return;
+            cout << "Invalid input" << endl;
+            _getch();
         }
-    }
-    if (choosePotion == 2) {
-        if (fullHeals > 0) {
-            cout << "You have chosen a Full heal";
-            playerActivePokemon->restoreHealth(playerActivePokemon->getMaxHealth());
-            player.useFullHeals();
-            Potions();
-            return;
-        }
-        else {
-            cout << "You dont have enough of this item, please choose another option.";
-            Potions();
-            return;
-        }
-    }
-    if (choosePotion == 3) {
-        Bag();
-        return;
-    }
-    else {
-        cout << "Invalid input";
-        Potions();
-        return;
     }
 }
 
-void Battle::Pokeballs() {
-    cout << "Pokeballs: " << player.getPokeballs() << endl;
-    cout << "Masterballs: " << player.getMasterballs() << endl << endl;
-    cout << "Which pokeball will you use?" << endl;
-    cout << "1 = Pokeball" << endl;
-    cout << "2 = Masterball" << endl;
-    cout << "3 = Back";
-    int chooseball;
-    cin >> chooseball;
-    if (chooseball == 1) {
-        if (player.getPokeballs() > 0) {
-            cout << "You have chosen a Pokeball";;
-            player.usePokeballs();
-            Pokeballs();
-            return;
+bool Battle::Pokeballs() {
+    while (true) { // Loop instead of recursion
+        cout << "Pokeballs: " << player.getPokeballs() << endl;
+        cout << "Masterballs: " << player.getMasterballs() << endl << endl;
+        cout << "Which pokeball will you use?" << endl;
+        cout << "1 = Pokeball" << endl;
+        cout << "2 = Masterball" << endl;
+        cout << "3 = Back" << endl;
+
+        int chooseball;
+        cin >> chooseball;
+
+        if (chooseball == 1) {
+            if (player.getPokeballs() > 0) {
+                cout << "You have chosen a Pokeball" << endl;
+                player.usePokeballs();
+                _getch();
+                return true; // Pokeball was used
+            }
+            else {
+                cout << "You don't have enough of this item, please choose another option." << endl;
+                _getch();
+            }
+        }
+        else if (chooseball == 2) {
+            if (player.getMasterballs() > 0) {
+                cout << "You have chosen a Masterball" << endl;
+                player.useMasterballs();
+                _getch();
+                return true; // Masterball was used
+            }
+            else {
+                cout << "You don't have enough of this item, please choose another option." << endl;
+                _getch();
+            }
+        }
+        else if (chooseball == 3) {
+            return false; // Return to bag menu
         }
         else {
-            cout << "You dont have enough of this item, please choose another option.";
-            Pokeballs();
-            return;
+            cout << "Invalid input. Please try again." << endl;
+            _getch();
         }
-    }
-    if (chooseball == 2) {
-        if (player.getMasterballs() > 0) {
-            cout << "You have chosen a Masterball";
-            player.useMasterballs();
-            Pokeballs();
-            return;
-        }
-        else {
-            cout << "You dont have enough of this item, please choose another option.";
-            Pokeballs();
-            return;
-        }
-    }
-    else {
-        cout << "Invalid input";
-        Pokeballs();
-        return;
     }
 }
 
@@ -351,14 +370,16 @@ void Battle::enemyAttack() {
 
 	seed = (a * seed + c) % m;  // LCG formula
     int moveIndex;
-    if (enemyActivePokemon->getMoveCount() < 4){
-        moveIndex = seed % enemyActivePokemon->getMoveCount();// Use the last move if less than 4 moves
-	} else
-	{
-        moveIndex = seed % 4;
-	}
+	moveIndex = seed % enemyActivePokemon->getMoveCount();// Use the last move if less than 4 moves
+	
 
-	enemyActivePokemon->useMove(moveIndex, *playerActivePokemon);
+    if (moveIndex >= 0 && moveIndex < enemyActivePokemon->getMoveCount()) {
+        enemyActivePokemon->useMove(moveIndex, *playerActivePokemon);
+    } else
+    {
+		cout << "Indexing went wrong: " << moveIndex << endl;
+        enemyActivePokemon->useMove(0, *playerActivePokemon);
+    }
 
 }
 

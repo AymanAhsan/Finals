@@ -36,9 +36,10 @@ public:
 	int getFullRecoveries() { return FullRecoveries; } // Getter for full recoveries
 	int getPokeballs() { return Pokeballs; } // Getter for pokeballs
 	int getMasterballs() { return Masterballs; } // Getter for masterballs
-	void useElixers(){ // Method to use elixers
+	void useElixers(Pokemon* pokemon){ // Method to use elixers
 		if (Elixers > 0) {
 			Elixers--;
+			pokemon->restoreHealth(30);
 			cout << "You used an elixer!" << endl;
 		}
 		else {
