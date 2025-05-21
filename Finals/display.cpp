@@ -42,6 +42,19 @@ void Display::displayMenu(Player& player, Character& rival) {
 	// Define the render function
 	auto renderMenu = [](int currentChoice) {
 		system("cls");
+		cout << "                                  ,'\n";
+		cout << "    _.----.        ____         ,'  _\\   ___    ___     ____\n";
+		cout << "_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n";
+		cout << "\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n";
+		cout << " \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n";
+		cout << "   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n";
+		cout << "    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n";
+		cout << "     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n";
+		cout << "      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n";
+		cout << "       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n";
+		cout << "        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n";
+		cout << "                                `'                            '-._|\n";
+		cout << endl << endl << endl << endl;
 		cout << "Welcome to Pokemon" << endl;
 		//Ternary operator to check if the current choice is selected
 		cout << (currentChoice == 1 ? "-> " : "   ") << "1. Start Game" << endl;
@@ -184,6 +197,74 @@ void Display::displayStart(Player& player, Character& rival)
 
 	cout << "Go out and catch some wild Pokemon!" << endl;
 	
-
+	displayPlayerMenu(player);
 	// Fix battle bug tmrw
+}
+
+void Display::displayParty(Player& player){
+	Pokemon* chosenPokemon;
+	for (int i = 0; i < player.getPokemonCount(); i++) {
+		cout << i + 1 << ": " << player.getPokemon(i)->getName() << endl;
+	}
+	int choice;
+	cin >> choice;
+	if (choice > 0 && choice <= player.getPokemonCount()) {
+		int pokemonChoices = 0;
+		chosenPokemon = player.getPokemon(choice - 1);
+		cout << "Selected " << chosenPokemon->getName() << "!" << endl;
+		cout << " HP: " << chosenPokemon->getHealth() << "/" << chosenPokemon->getMaxHealth() << endl;
+		cout << "What would you like to do to " << chosenPokemon->getName() << "!" << endl;
+		cout << "1. Heal pokemon" << endl;
+		if(pokemonChoices == 1){
+			chosenPokemon->restoreHealth(chosenPokemon->getMaxHealth());
+			
+		}
+	}
+	else {
+		cout << "Invalid choice. Please try again." << endl;
+	}
+}
+
+void Display::displayPlayerMenu(Player& player){
+	cout << "Menu" << endl;
+	int choices = 0;
+	cout << "1. Party" << endl;
+	cout << "2. Battles" << endl;
+	cout << "3. Bag" << endl;
+	cout << "4. Utilites" << endl;
+
+	cin >> choices;
+
+	switch (choices) {
+	case 1:
+		// Handle Party option
+		cout << "Party selected" << endl;
+		// Add your party functionality here
+
+		break;
+
+	case 2:
+		// Handle Battles option
+		cout << "Battles selected" << endl;
+		// Add your battles functionality here
+		break;
+
+	case 3:
+		// Handle Bag option
+		cout << "Bag selected" << endl;
+		Bag();
+		// Add your bag functionality here
+		break;
+
+	case 4:
+		// Handle Utilities option
+		cout << "Utilities selected" << endl;
+		// Add your utilities functionality here
+		break;
+
+	default:
+		cout << "Invalid choice. Please select 1-4." << endl;
+		break;
+	}
+	
 }

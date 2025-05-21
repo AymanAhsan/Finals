@@ -62,6 +62,12 @@ public:
 		}
 	}
 
+	void restorePP(){
+		for(auto moves: moves){
+
+		}
+	}
+
 	void setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath);
 	int calculateXPForLevel(int lvl);
 	void gainXP(int amount);
