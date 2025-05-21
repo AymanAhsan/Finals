@@ -170,6 +170,19 @@ void Display::displayStart(Player& player, Character& rival)
 		_getch();
 	}
 
+	cout << "Professor Maxwell: You have to train your Pokemon to be the best!" << endl;
+	_getch();
+	cout << "Professor Maxwell: You can now go out and explore the world!" << endl;
+	_getch();
+	cout << "Take some pokemons and potions with you!" << endl;
+	_getch();
+	player.addElixers(10);
+	cout << "You have received 10 elixers!" << endl;
+	_getch();
+	player.addPokeballs(10);
+	cout << "You have received 10 pokeballs!" << endl;
+
+	cout << "Go out and catch some wild Pokemon!" << endl;
 	
 
 	// Fix battle bug tmrw
