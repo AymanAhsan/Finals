@@ -217,7 +217,6 @@ void Display::displayParty(Player& player){
 		cout << "1. Heal pokemon" << endl;
 		if(pokemonChoices == 1){
 			chosenPokemon->restoreHealth(chosenPokemon->getMaxHealth());
-			
 		}
 	}
 	else {
@@ -231,7 +230,7 @@ void Display::displayPlayerMenu(Player& player){
 	cout << "1. Party" << endl;
 	cout << "2. Battles" << endl;
 	cout << "3. Bag" << endl;
-	cout << "4. Utilites" << endl;
+	cout << "4. Shop" << endl;
 
 	cin >> choices;
 
@@ -240,26 +239,80 @@ void Display::displayPlayerMenu(Player& player){
 		// Handle Party option
 		cout << "Party selected" << endl;
 		// Add your party functionality here
-
+		displayParty(player);
 		break;
 
 	case 2:
 		// Handle Battles option
 		cout << "Battles selected" << endl;
+		int chooseBattle;
+		cout << "1. Wild Pokemon" << endl;
+		cout << "2. Back" << endl;
+		cin >> chooseBattle;
+		if (chooseBattle == 1) {
+
+		}
+		if (chooseBattle == 2) {
+			return displayPlayerMenu();
+		}
+		else {
+			cout << "Invalid Input, try again." << endl;
+			return;
+		}
+
 		// Add your battles functionality here
 		break;
 
 	case 3:
 		// Handle Bag option
 		cout << "Bag selected" << endl;
-		Bag();
+		cout << "Pokeballs: " << player.getPokeballs() << endl;
+		cout << "Masterballs: " << player.getMasterballs() << endl;
+		cout << "Elixers: " << player.getElixers() << endl;
+		cout << "Full Heals: " << player.getFullHeals() << endl;
+		cout << "Enter 1 to go back" << endl;
+		int exitBag;
+		cin >> exitBag;
+		if (exitBag == 1) {
+			return displayPlayerMenu();
+		}
+		else {
+			cout << "Invalid Input, try again." << endl;
+			return;
+		}
 		// Add your bag functionality here
 		break;
 
 	case 4:
-		// Handle Utilities option
-		cout << "Utilities selected" << endl;
-		// Add your utilities functionality here
+		// Handle Shop option
+		int choice;
+		cout << "Shop selected" << endl;
+		cout << "What would you like to purchase" << endl;
+		cout << "1. Potions: 10 Coins" << endl;
+		cout << "2. Pokeballs: 10 coins" << endl;
+		if(choice == 1){
+			int amt;
+			cout << "How many Pokeballs would you like to purchase" << endl;
+			cin >> amt;
+			if(player.getPokecoins() >= amt * 10){
+				player.addPokeballs(amt);
+				cout << "Purchased " << amt << " of Pokeballs" << endl;
+			} else {
+				cout << "Not enough pokecoins" << endl;
+			}
+		} 
+		if(choice == 2){
+			int amt;
+			cout << "How many potions would you like to purchase" << endl;
+			cin >> amt;
+			if (player.getPokecoins() >= amt * 10) {
+				player.addPotions(amt);
+				cout << "Purchased " << amt << " of Potions" << endl;
+			}
+			else {
+				cout << "Not enough pokecoins" << endl;
+			}
+		}
 		break;
 
 	default:
