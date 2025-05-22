@@ -12,5 +12,6 @@ public:
 	void displayParty(Player& player);
 	void displayBattle(Player& player);
 	void displayUtil(Player& player);
+	Pokemon* createWildPokemon(Player& player);
 };
 

@@ -12,22 +12,24 @@ private:
 	Pokemon* enemyActivePokemon;  // so they can be updated during battle
 	string battleType;
 	string battleOutcome;
+	bool playerRan = false;
 	static const float typeChart[18][18];
 public:
 	//Constructor
-	Battle(Player& player, Character& enemy) : player(player), enemy(enemy) {
-		playerActivePokemon = player.getPokemon(0); // Gets first pokemon
-		enemyActivePokemon = enemy.getPokemon(0); 
+	Battle(Player& player, Character& enemy, string battleType = "trainer")
+		: player(player), enemy(enemy), battleType(battleType) {
+		playerActivePokemon = player.getPokemon(0);
+		enemyActivePokemon = enemy.getPokemon(0);
 	}
 
 	/// Function to simulate a battle between two Pokemon
-	void start();
+	bool start();
 	void Fight();
-	void Bag();
+	bool Bag();
 	bool Potions();
 	bool Pokeballs();
-	void Switch();
-	void RunAway();
+	bool Switch();
+	bool RunAway();
 	void enemyAttack();
 	bool isPartyDefeated(Character& character);
 	Pokemon* getNextAlivePokemon(Character& character);

@@ -9,15 +9,11 @@ class Character
 {
 private:
 	string name;
-	vector<Pokemon*> pokemonParty = vector<Pokemon*>(6, nullptr);
+	vector<Pokemon*> pokemonParty;
 	int pokemonCount;
 public:
 	Character() : pokemonCount(0)
 	{
-		for (int i = 0; i < 6; i++)
-		{
-			pokemonParty[i] = nullptr; // Initialize all pointers to nullptr
-		}
 	} // Default constructor to initialize pokemonCount and pokemonParty
 	Pokemon* getPokemon(int index);
 	bool addPokemon(Pokemon* pokemon); // Method to add a Pokemon to the party

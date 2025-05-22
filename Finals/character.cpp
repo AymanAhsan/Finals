@@ -18,8 +18,7 @@ bool Character::addPokemon(Pokemon* pokemon)
 {
 	if (pokemonCount < 6)
 	{
-		pokemonParty[pokemonCount] = pokemon;
-		pokemonCount++;
+		pokemonParty.push_back(pokemon);
 
 		return true;
 	}

@@ -8,8 +8,8 @@
 bool Battle::isPartyDefeated(Character& character) {
     // Check if all Pokemon in the party are defeated
     for (int i = 0; i < character.getPokemonCount(); i++) {
-        if (character.getPokemon(i)->isAlive()) {
-            return false; // At least one Pokemon is still alive
+        if (character.getPokemon(i) != nullptr && character.getPokemon(i)->isAlive()) {
+            return false;
         }
     }
     return true; // All Pokemon are defeated
@@ -28,6 +28,7 @@ Pokemon* Battle::getNextAlivePokemon(Character& character) {
 bool Battle::battleLoop() {
     bool battleOver = false;
     bool playerWon = false;
+    playerRan = false;
 
     // Initial Pokemon setup
     playerActivePokemon = getNextAlivePokemon(player);
@@ -40,8 +41,14 @@ bool Battle::battleLoop() {
     // Main battle loop
     while (!battleOver) {
         // Player's turn
-        cout << endl << "--------- " << player.getName() << "'s Turn ---------" << endl;
-        start(); // Player chooses an action
+        bool actionTaken = start(); // Player chooses an action
+
+        if (playerRan)
+        {
+            battleOver = true;
+        	playerWon = false;
+            continue;
+        }
 
         // Check if enemy Pokemon fainted
         if (!enemyActivePokemon->isAlive()) {
@@ -62,7 +69,7 @@ bool Battle::battleLoop() {
         }
 
         // Enemy's turn (only if battle isn't over already)
-        if (!battleOver) {
+        if (!battleOver && actionTaken) {
             cout << endl << "--------- " << enemy.getName() << "'s Turn ---------" << endl;
             enemyAttack();
 
@@ -89,7 +96,7 @@ bool Battle::battleLoop() {
 	return playerWon; // Return whether the player won or not
 }
 
-void Battle::start()
+bool Battle::start()
 {
     
     int choice;
@@ -107,10 +114,10 @@ void Battle::start()
         case 1:
 			cout << "You chose to attack!" << endl;
             Fight();
-			break;
+            return true;
         case 2:
 			cout << "You chose to use an item!" << endl;
-            Bag();
+            return Bag();
             break;
 		case 3:
             cout << "You chose to switch Pokemon!" << endl;
@@ -118,10 +125,14 @@ void Battle::start()
 			break;
 		case 4:
         cout << "You chose to run away!" << endl;
+			if (RunAway())
+			{
+				playerRan = true;
+			}
             break;
         default:
             cout << "Invalid choice. Please try again." << endl;
-            break;
+            return start(); 
     }
     // Call the enemyAttack function to simulate the enemy's attack
     
@@ -148,7 +159,7 @@ void Battle::Fight() {
     }
 }
 
-void Battle::Switch()
+bool Battle::Switch()
 {
     cout << "Which Pokemon would you like to switch to?" << endl;
     for (int i = 0; i < player.getPokemonCount(); i++) {
@@ -157,29 +168,49 @@ void Battle::Switch()
     int choice;
     cin >> choice;
     if (choice > 0 && choice <= player.getPokemonCount()) {
-        playerActivePokemon = player.getPokemon(choice - 1);
-        cout << "Switched to " << playerActivePokemon->getName() << "!" << endl;
+		// Check if the chosen Pokemon is alive
+        if (!player.getPokemon(choice - 1)->isAlive()) {
+            cout << "This Pokemon is fainted, please choose another one." << endl;
+            Switch();
+            return false; // Return to the switch menu
+		}
+        // Check same pokemon
+        if (player.getPokemon(choice - 1)->getName() == playerActivePokemon->getName())
+        {
+            cout << "cannot switch to the same pokemon";
+            return false;
+        } else
+        {
+            playerActivePokemon = player.getPokemon(choice - 1);
+            cout << "Switched to " << playerActivePokemon->getName() << "!" << endl;
+            return true;
+        }
+        
     }
     else {
         cout << "Invalid choice. Please try again." << endl;
     }
 }
 
-void Battle::RunAway()
+bool Battle::RunAway()
 {
-    if (battleType == "wild")
+    if (battleType == "wild" || battleType == "Wild")
     {
         cout << "You ran away!" << endl;
+        _getch();
+        return true;
     }
     else
     {
         cout << "You can't run away from a trainer battle!" << endl;
+		_getch();
+		return false;
     }
 }
 
 
 
-void Battle::Bag() {
+bool Battle::Bag() {
     bool itemUsed = false;
     while (!itemUsed) {
         int choice;
@@ -196,14 +227,14 @@ void Battle::Bag() {
             itemUsed = Pokeballs();
             break;
         case 3:
-            return; // Return to battle menu without using a turn
+            return false;
         default:
             cout << "Invalid Input" << endl;
             break;
         }
 
         if (itemUsed) {
-            return; // Item was used, end turn
+            return true; // Item was used, end turn
         }
     }
 }
@@ -222,7 +253,7 @@ bool Battle::Potions() {
         cin >> choosePotion;
 
         if (choosePotion == 1) {
-            cout << "You have chosen an Elixer";
+            cout << "You have chosen an Elixer" << endl;
             player.useElixers(playerActivePokemon);
             _getch();
             return true; // Item was used, end turn
