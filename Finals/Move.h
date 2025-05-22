@@ -57,11 +57,6 @@ public:
 
     // Restore PP
     void restorePP(int amount = -1) {
-        if (amount < 0) {
-            pp = maxPP; // Full restore
-        }
-        else {
-            pp = min(pp + amount, maxPP);
-        }
+        pp = maxPP;
     }
 };

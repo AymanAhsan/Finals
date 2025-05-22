@@ -23,8 +23,12 @@ private:
 	int currentXP;
 	int xpToNextLevel;
 public:
-	Pokemon(string name, int level, int health, int maxHealth, int attackPower, int defensePower, int speed)
-		: name(name), level(level), health(health), maxHealth(maxHealth), attackPower(attackPower), defensePower(defensePower), speed(speed) {
+	Pokemon(string name, int level)
+		: name(name), level(level), health(10), maxHealth(10),
+		attackPower(5), defensePower(5), speed(5),
+		primaryType(Type::NONE), secondaryType(Type::NONE) {
+		currentXP = 0;
+		xpToNextLevel = calculateXPForLevel(level + 1);
 	}
 	string getName() { return name; }
 	int getLevel() { return level; }
@@ -62,9 +66,9 @@ public:
 		}
 	}
 
-	void restorePP(){
+	void restoreMoves(){
 		for(auto moves: moves){
-
+			moves->restorePP();
 		}
 	}
 

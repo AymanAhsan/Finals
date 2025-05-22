@@ -46,6 +46,7 @@ bool Battle::battleLoop() {
         // Check if enemy Pokemon fainted
         if (!enemyActivePokemon->isAlive()) {
             cout << enemyActivePokemon->getName() << " fainted!" << endl;
+			playerActivePokemon->gainXP(enemyActivePokemon->getLevel() * 10); // Gain experience for defeating an enemy Pokemon
 
             // Check if all enemy Pokemon are defeated
             if (isPartyDefeated(enemy)) {

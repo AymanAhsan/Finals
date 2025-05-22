@@ -82,6 +82,30 @@ void Pokemon::setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath,
 			pokemon->setSecondaryType(stringToType(data["secondaryType"]));
 		}
 
+		// Scale and set the Pokemon's stats based on level
+		if (data.contains("baseStats")) {
+			int level = pokemon->getLevel();
+
+			// Get base stats from JSON
+			int baseHP = data["baseStats"]["hp"];
+			int baseAttack = data["baseStats"]["attack"];
+			int baseDefense = data["baseStats"]["defense"];
+			int baseSpeed = data["baseStats"]["speed"];
+
+			// Scale stats based on level (increase by 2 per level)
+			int scaledHP = baseHP + (level - 1) * 2;
+			int scaledAttack = baseAttack + (level - 1) * 2;
+			int scaledDefense = baseDefense + (level - 1) * 2;
+			int scaledSpeed = baseSpeed + (level - 1) * 2;
+
+			// Set the scaled stats to the Pokemon
+			pokemon->setMaxHealth(scaledHP);
+			pokemon->setHealth(scaledHP); // Also set current HP to max
+			pokemon->setAttackPower(scaledAttack);
+			pokemon->setDefensePower(scaledDefense);
+			pokemon->setSpeed(scaledSpeed);
+		}
+
 		// Add the Pokemon's default moves
 		if (data.contains("levelMoves")) {
 			for (const auto& levelMove : data["levelMoves"]) {

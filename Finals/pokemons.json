@@ -1,303 +1,447 @@
 {
-    "Turtwig": {
-        "primaryType": "Grass",
-        "secondaryType": "None",
-        "moves": [ "Tackle", "Absorb" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Tackle"
-            },
-            {
-                "level": 5,
-                "move": "Absorb"
-            }
-        ]
+  "Turtwig": {
+    "primaryType": "Grass",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 55,
+      "attack": 68,
+      "defense": 64,
+      "speed": 31
     },
-    "Grotle": {
-        "primaryType": "Grass",
-        "secondaryType": "None",
-        "moves": [ "Razor Leaf", "Curse" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Razor Leaf"
-            },
-            {
-                "level": 15,
-                "move": "Curse"
-            }
-        ]
+    "moves": [ "Tackle", "Absorb" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Tackle"
+      },
+      {
+        "level": 5,
+        "move": "Absorb"
+      }
+    ]
+  },
+  "Grotle": {
+    "primaryType": "Grass",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 75,
+      "attack": 89,
+      "defense": 85,
+      "speed": 36
     },
-    "Torterra": {
-        "primaryType": "Grass",
-        "secondaryType": "Ground",
-        "moves": [ "Earthquake", "Wood Hammer" ],
-        "levelMoves": [
-            {
-                "level": 20,
-                "move": "Earthquake"
-            },
-            {
-                "level": 25,
-                "move": "Wood Hammer"
-            }
-        ]
+    "moves": [ "Razor Leaf", "Curse" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Razor Leaf"
+      },
+      {
+        "level": 15,
+        "move": "Curse"
+      }
+    ]
+  },
+  "Torterra": {
+    "primaryType": "Grass",
+    "secondaryType": "Ground",
+    "baseStats": {
+      "hp": 95,
+      "attack": 109,
+      "defense": 105,
+      "speed": 56
     },
-    "Chimchar": {
-        "primaryType": "Fire",
-        "secondaryType": "None",
-        "moves": [ "Ember", "Scratch" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Ember"
-            },
-            {
-                "level": 5,
-                "move": "Scratch"
-            }
-        ]
+    "moves": [ "Earthquake", "Wood Hammer" ],
+    "levelMoves": [
+      {
+        "level": 20,
+        "move": "Earthquake"
+      },
+      {
+        "level": 25,
+        "move": "Wood Hammer"
+      }
+    ]
+  },
+  "Chimchar": {
+    "primaryType": "Fire",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 44,
+      "attack": 58,
+      "defense": 44,
+      "speed": 61
     },
-    "Monferno": {
-        "primaryType": "Fire",
-        "secondaryType": "Fighting",
-        "moves": [ "Flame Wheel", "Mach Punch" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Flame Wheel"
-            },
-            {
-                "level": 15,
-                "move": "Mach Punch"
-            }
-        ]
+    "moves": [ "Ember", "Scratch" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Ember"
+      },
+      {
+        "level": 5,
+        "move": "Scratch"
+      }
+    ]
+  },
+  "Monferno": {
+    "primaryType": "Fire",
+    "secondaryType": "Fighting",
+    "baseStats": {
+      "hp": 64,
+      "attack": 78,
+      "defense": 52,
+      "specialAttack": 78,
+      "specialDefense": 52,
+      "speed": 81
     },
-    "Infernape": {
-        "primaryType": "Fire",
-        "secondaryType": "Fighting",
-        "moves": [ "Flare Blitz", "Close Combat" ],
-        "levelMoves": [
-            {
-                "level": 20,
-                "move": "Flare Blitz"
-            },
-            {
-                "level": 25,
-                "move": "Close Combat"
-            }
-        ]
+    "moves": [ "Flame Wheel", "Mach Punch" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Flame Wheel"
+      },
+      {
+        "level": 15,
+        "move": "Mach Punch"
+      }
+    ]
+  },
+  "Infernape": {
+    "primaryType": "Fire",
+    "secondaryType": "Fighting",
+    "baseStats": {
+      "hp": 76,
+      "attack": 104,
+      "defense": 71,
+      "specialAttack": 104,
+      "specialDefense": 71,
+      "speed": 108
     },
-    "Piplup": {
-        "primaryType": "Water",
-        "secondaryType": "None",
-        "moves": [ "Pound", "Bubble" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Pound"
-            },
-            {
-                "level": 5,
-                "move": "Bubble"
-            }
-        ]
+    "moves": [ "Flare Blitz", "Close Combat" ],
+    "levelMoves": [
+      {
+        "level": 20,
+        "move": "Flare Blitz"
+      },
+      {
+        "level": 25,
+        "move": "Close Combat"
+      }
+    ]
+  },
+  "Piplup": {
+    "primaryType": "Water",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 53,
+      "attack": 51,
+      "defense": 53,
+      "specialAttack": 61,
+      "specialDefense": 56,
+      "speed": 40
     },
-    "Prinplup": {
-        "primaryType": "Water",
-        "secondaryType": "None",
-        "moves": [ "Aqua Jet", "Metal Claw" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Aqua Jet"
-            },
-            {
-                "level": 15,
-                "move": "Metal Claw"
-            }
-        ]
+    "moves": [ "Pound", "Bubble" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Pound"
+      },
+      {
+        "level": 5,
+        "move": "Bubble"
+      }
+    ]
+  },
+  "Prinplup": {
+    "primaryType": "Water",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 64,
+      "attack": 66,
+      "defense": 68,
+      "specialAttack": 81,
+      "specialDefense": 76,
+      "speed": 50
     },
-    "Empoleon": {
-        "primaryType": "Water",
-        "secondaryType": "Steel",
-        "moves": [ "Hydro Pump", "Flash Cannon" ],
-        "levelMoves": [
-            {
-                "level": 20,
-                "move": "Hydro Pump"
-            },
-            {
-                "level": 25,
-                "move": "Flash Cannon"
-            }
-        ]
+    "moves": [ "Aqua Jet", "Metal Claw" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Aqua Jet"
+      },
+      {
+        "level": 15,
+        "move": "Metal Claw"
+      }
+    ]
+  },
+  "Empoleon": {
+    "primaryType": "Water",
+    "secondaryType": "Steel",
+    "baseStats": {
+      "hp": 84,
+      "attack": 86,
+      "defense": 88,
+      "specialAttack": 111,
+      "specialDefense": 101,
+      "speed": 60
     },
-    "Caterpie": {
-        "primaryType": "Bug",
-        "secondaryType": "None",
-        "moves": [ "Tackle", "String Shot" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Tackle"
-            },
-            {
-                "level": 5,
-                "move": "String Shot"
-            }
-        ]
+    "moves": [ "Hydro Pump", "Flash Cannon" ],
+    "levelMoves": [
+      {
+        "level": 20,
+        "move": "Hydro Pump"
+      },
+      {
+        "level": 25,
+        "move": "Flash Cannon"
+      }
+    ]
+  },
+  "Caterpie": {
+    "primaryType": "Bug",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 45,
+      "attack": 30,
+      "defense": 35,
+      "specialAttack": 20,
+      "specialDefense": 20,
+      "speed": 45
     },
-    "Metapod": {
-        "primaryType": "Bug",
-        "secondaryType": "None",
-        "moves": [ "Harden", "Tackle" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Harden"
-            },
-            {
-                "level": 15,
-                "move": "Tackle"
-            }
-        ]
+    "moves": [ "Tackle", "String Shot" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Tackle"
+      },
+      {
+        "level": 5,
+        "move": "String Shot"
+      }
+    ]
+  },
+  "Metapod": {
+    "primaryType": "Bug",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 50,
+      "attack": 20,
+      "defense": 55,
+      "specialAttack": 25,
+      "specialDefense": 25,
+      "speed": 30
     },
-    "Butterfree": {
-        "primaryType": "Bug",
-        "secondaryType": "Flying",
-        "moves": [ "Confusion", "Sleep Powder" ],
-        "levelMoves": [
-            {
-                "level": 20,
-                "move": "Confusion"
-            },
-            {
-                "level": 25,
-                "move": "Sleep Powder"
-            }
-        ]
+    "moves": [ "Harden", "Tackle" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Harden"
+      },
+      {
+        "level": 15,
+        "move": "Tackle"
+      }
+    ]
+  },
+  "Butterfree": {
+    "primaryType": "Bug",
+    "secondaryType": "Flying",
+    "baseStats": {
+      "hp": 60,
+      "attack": 45,
+      "defense": 50,
+      "specialAttack": 90,
+      "specialDefense": 80,
+      "speed": 70
     },
-    "Fletchinder": {
-        "primaryType": "Fire",
-        "secondaryType": "Flying",
-        "moves": [ "Tackle", "Ember" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Tackle"
-            },
-            {
-                "level": 5,
-                "move": "Ember"
-            }
-        ]
+    "moves": [ "Confusion", "Sleep Powder" ],
+    "levelMoves": [
+      {
+        "level": 20,
+        "move": "Confusion"
+      },
+      {
+        "level": 25,
+        "move": "Sleep Powder"
+      }
+    ]
+  },
+  "Fletchinder": {
+    "primaryType": "Fire",
+    "secondaryType": "Flying",
+    "baseStats": {
+      "hp": 62,
+      "attack": 73,
+      "defense": 55,
+      "specialAttack": 56,
+      "specialDefense": 52,
+      "speed": 84
     },
-    "Talonflame": {
-        "primaryType": "Fire",
-        "secondaryType": "Flying",
-        "moves": [ "Flame Charge", "Aerial Ace", "Brave Bird", "Flare Blitz" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Flame Charge"
-            },
-            {
-                "level": 15,
-                "move": "Aerial Ace"
-            },
-            {
-                "level": 20,
-                "move": "Brave Bird"
-            },
-            {
-                "level": 25,
-                "move": "Flare Blitz"
-            }
-        ]
+    "moves": [ "Tackle", "Ember" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Tackle"
+      },
+      {
+        "level": 5,
+        "move": "Ember"
+      }
+    ]
+  },
+  "Talonflame": {
+    "primaryType": "Fire",
+    "secondaryType": "Flying",
+    "baseStats": {
+      "hp": 78,
+      "attack": 81,
+      "defense": 71,
+      "specialAttack": 74,
+      "specialDefense": 69,
+      "speed": 126
     },
-    "Magikarp": {
-        "primaryType": "Water",
-        "secondaryType": "None",
-        "moves": [ "Splash", "Tackle" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Splash"
-            },
-            {
-                "level": 5,
-                "move": "Tackle"
-            }
-        ]
+    "moves": [ "Flame Charge", "Aerial Ace", "Brave Bird", "Flare Blitz" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Flame Charge"
+      },
+      {
+        "level": 15,
+        "move": "Aerial Ace"
+      },
+      {
+        "level": 20,
+        "move": "Brave Bird"
+      },
+      {
+        "level": 25,
+        "move": "Flare Blitz"
+      }
+    ]
+  },
+  "Magikarp": {
+    "primaryType": "Water",
+    "secondaryType": "None",
+    "baseStats": {
+      "hp": 20,
+      "attack": 10,
+      "defense": 55,
+      "specialAttack": 15,
+      "specialDefense": 20,
+      "speed": 80
     },
-    "Gyarados": {
-        "primaryType": "Water",
-        "secondaryType": "Flying",
-        "moves": [ "Bite", "Dragon Rage", "Hydro Pump", "Hyper Beam" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Bite"
-            },
-            {
-                "level": 15,
-                "move": "Dragon Rage"
-            },
-            {
-                "level": 20,
-                "move": "Hydro Pump"
-            },
-            {
-                "level": 25,
-                "move": "Hyper Beam"
-            }
-        ]
+    "moves": [ "Splash", "Tackle" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Splash"
+      },
+      {
+        "level": 5,
+        "move": "Tackle"
+      }
+    ]
+  },
+  "Gyarados": {
+    "primaryType": "Water",
+    "secondaryType": "Flying",
+    "baseStats": {
+      "hp": 95,
+      "attack": 125,
+      "defense": 79,
+      "specialAttack": 60,
+      "specialDefense": 100,
+      "speed": 81
     },
-    "Ralts": {
-        "primaryType": "Psychic",
-        "secondaryType": "Fairy",
-        "moves": [ "Growl", "Confusion" ],
-        "levelMoves": [
-            {
-                "level": 1,
-                "move": "Growl"
-            },
-            {
-                "level": 5,
-                "move": "Confusion"
-            }
-        ]
+    "moves": [ "Bite", "Dragon Rage", "Hydro Pump", "Hyper Beam" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Bite"
+      },
+      {
+        "level": 15,
+        "move": "Dragon Rage"
+      },
+      {
+        "level": 20,
+        "move": "Hydro Pump"
+      },
+      {
+        "level": 25,
+        "move": "Hyper Beam"
+      }
+    ]
+  },
+  "Ralts": {
+    "primaryType": "Psychic",
+    "secondaryType": "Fairy",
+    "baseStats": {
+      "hp": 28,
+      "attack": 25,
+      "defense": 25,
+      "specialAttack": 45,
+      "specialDefense": 35,
+      "speed": 40
     },
-    "Kirlia": {
-        "primaryType": "Psychic",
-        "secondaryType": "Fairy",
-        "moves": [ "Double Team", "Psybeam" ],
-        "levelMoves": [
-            {
-                "level": 10,
-                "move": "Double Team"
-            },
-            {
-                "level": 15,
-                "move": "Psybeam"
-            }
-        ]
+    "moves": [ "Growl", "Confusion" ],
+    "levelMoves": [
+      {
+        "level": 1,
+        "move": "Growl"
+      },
+      {
+        "level": 5,
+        "move": "Confusion"
+      }
+    ]
+  },
+  "Kirlia": {
+    "primaryType": "Psychic",
+    "secondaryType": "Fairy",
+    "baseStats": {
+      "hp": 38,
+      "attack": 35,
+      "defense": 35,
+      "specialAttack": 65,
+      "specialDefense": 55,
+      "speed": 50
     },
-    "Gardevoir": {
-        "primaryType": "Psychic",
-        "secondaryType": "Fairy",
-        "moves": [ "Psychic", "Moonblast" ],
-        "levelMoves": [
-            {
-                "level": 20,
-                "move": "Psychic"
-            },
-            {
-                "level": 25,
-                "move": "Moonblast"
-            }
-        ]
-    }
+    "moves": [ "Double Team", "Psybeam" ],
+    "levelMoves": [
+      {
+        "level": 10,
+        "move": "Double Team"
+      },
+      {
+        "level": 15,
+        "move": "Psybeam"
+      }
+    ]
+  },
+  "Gardevoir": {
+    "primaryType": "Psychic",
+    "secondaryType": "Fairy",
+    "baseStats": {
+      "hp": 68,
+      "attack": 65,
+      "defense": 65,
+      "specialAttack": 125,
+      "specialDefense": 115,
+      "speed": 80
+    },
+    "moves": [ "Psychic", "Moonblast" ],
+    "levelMoves": [
+      {
+        "level": 20,
+        "move": "Psychic"
+      },
+      {
+        "level": 25,
+        "move": "Moonblast"
+      }
+    ]
+  }
 }

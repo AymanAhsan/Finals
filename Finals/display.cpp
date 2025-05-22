@@ -98,14 +98,16 @@ void Display::displayStart(Player& player, Character& rival)
 	system("cls");
 
 	// Create starter Pokemon
-	Pokemon* turtwig = new Pokemon("Turtwig", 5, 20, 20, 10, 5, 5);
-	Pokemon* chimchar = new Pokemon("Chimchar", 5, 20, 20, 10, 5, 5);
-	Pokemon* piplup = new Pokemon("Piplup", 5, 20, 20, 10, 5, 5);
+// Change this part in displayStart function
+// Create starter Pokemon with minimal initialization - stats will be set by setupPokemon
+	Pokemon* turtwig = new Pokemon("Turtwig", 5);
+	Pokemon* chimchar = new Pokemon("Chimchar", 5);
+	Pokemon* piplup = new Pokemon("Piplup", 5);
 
-	// Setup Pokemon data
-	turtwig->setupPokemon(turtwig, "pokemons.json", "moves.json" );
-	chimchar->setupPokemon(chimchar, "pokemons.json", "moves.json" );
-	piplup->setupPokemon(piplup, "pokemons.json", "moves.json" );
+	// Setup Pokemon data - this will load types, moves, and scale stats based on level
+	turtwig->setupPokemon(turtwig, "pokemons.json", "moves.json");
+	chimchar->setupPokemon(chimchar, "pokemons.json", "moves.json");
+	piplup->setupPokemon(piplup, "pokemons.json", "moves.json");
 
 	Pokemon* playerStarter = nullptr;
 	Pokemon* rivalStarter = nullptr;
@@ -217,6 +219,9 @@ void Display::displayParty(Player& player){
 		cout << "1. Heal pokemon" << endl;
 		if(pokemonChoices == 1){
 			chosenPokemon->restoreHealth(chosenPokemon->getMaxHealth());
+			chosenPokemon->restoreMoves();
+			cout << "Pokemon healed!" << endl;
+			displayParty(player);
 		}
 	}
 	else {
