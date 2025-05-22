@@ -17,14 +17,18 @@ private:
 	int attackPower;
 	int defensePower;
 	int speed;
-	vector<Move*> moves;
+	vector<Move*> moves; // Vector to hold moves
 	Type primaryType;
 	Type secondaryType;
 	int currentXP;
 	int xpToNextLevel;
 public:
-	Pokemon(string name, int level, int health, int maxHealth, int attackPower, int defensePower, int speed)
-		: name(name), level(level), health(health), maxHealth(maxHealth), attackPower(attackPower), defensePower(defensePower), speed(speed) {
+	Pokemon(string name, int level)
+		: name(name), level(level), health(10), maxHealth(10),
+		attackPower(5), defensePower(5), speed(5),
+		primaryType(Type::NONE), secondaryType(Type::NONE) {
+		currentXP = 0;
+		xpToNextLevel = calculateXPForLevel(level + 1);
 	}
 	string getName() { return name; }
 	int getLevel() { return level; }
@@ -32,7 +36,9 @@ public:
 	int getMaxHealth() { return maxHealth; }
 	int getAttackPower() { return attackPower; }
 	int getDefensePower() { return defensePower; }
+	int getMoveCount() { return moves.size(); } // Get the number of moves
 	int getSpeed() { return speed; }
+	Move getMove(int index) { return *moves[index]; }
 	void setName(string name) { this->name = name; }
 	void setLevel(int level) { this->level = level; }
 	void setHealth(int health) { this->health = health; }
@@ -45,8 +51,6 @@ public:
 	Type getPrimaryType() { return primaryType; }
 	Type getSecondaryType() { return secondaryType; }
 	void learnMove(Move* move);
-	int calculateDamage(Move move, Pokemon& target);
-	float getTypeEffectiveness(Type attackType, Type defenderType);
 	bool isAlive() { return health > 0; } // Check if the Pokemon is alive
 	bool useMove(int index, Pokemon& target);
 	void takeDamage(int damage) {
@@ -61,7 +65,12 @@ public:
 			health = maxHealth; // Ensure health doesn't exceed maxHealth
 		}
 	}
-	float calculateTypeEffectiveness(Type moveType, Pokemon& target);
+
+	void restoreMoves(){
+		for(auto moves: moves){
+			moves->restorePP();
+		}
+	}
 
 	void setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath);
 	int calculateXPForLevel(int lvl);

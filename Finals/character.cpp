@@ -18,8 +18,8 @@ bool Character::addPokemon(Pokemon* pokemon)
 {
 	if (pokemonCount < 6)
 	{
-		pokemonParty[pokemonCount] = pokemon;
-		pokemonCount++;
+		pokemonParty.push_back(pokemon);
+
 		return true;
 	}
 	else
@@ -27,4 +27,9 @@ bool Character::addPokemon(Pokemon* pokemon)
 		cout << "Pokemon party is full!" << endl;
 		return false;
 	}
+}
+
+Pokemon* Character::getPokemon(int index)
+{
+	return pokemonParty[index];
 }

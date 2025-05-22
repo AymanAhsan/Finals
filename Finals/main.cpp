@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Battle.h"
 #include "game.h"
 
 
@@ -7,4 +8,5 @@ int main() {
 	game.startGame();
 
 	return 0;
+
 }

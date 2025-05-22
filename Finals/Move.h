@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "type.h"
-#include "include/nlohmann/json.hpp"
+
 
 
 using namespace std;
@@ -31,6 +31,7 @@ public:
     int getAccuracy() const { return accuracy; }
     int getPP() const { return pp; }
     int getMaxPP() const { return maxPP; }
+    void decreasePP() { pp--; }
     string getDescription() const { return description; }
     static Move* loadMoveFromJson(const std::string& moveName, const std::string& jsonFilePath);
 
@@ -56,11 +57,6 @@ public:
 
     // Restore PP
     void restorePP(int amount = -1) {
-        if (amount < 0) {
-            pp = maxPP; // Full restore
-        }
-        else {
-            pp = min(pp + amount, maxPP);
-        }
+        pp = maxPP;
     }
 };

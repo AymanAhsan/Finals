@@ -7,6 +7,9 @@
 #include <conio.h>
 #include "include/nlohmann/json.hpp"
 #include <fstream> // For file handling
+// https://github.com/nlohmann/json
+
+#include "Battle.h"
 
 using namespace std;
 
@@ -46,66 +49,6 @@ void Pokemon::learnMove(Move* move) {
 	}
 }
 
-// Function to use a move
-int Pokemon::calculateDamage(Move move, Pokemon& target)
-{
-	float typeEffectiveness = calculateTypeEffectiveness(move.getType(), target);
-	float stab = 1.0f; // Same Type Attack Bonus - 1.5 if move type matches Pokémon type
-	// Standard pokemon calculation)
-	int baseDamage = (2 * level / 5 + 2) * move.getPower() * attackPower / target.getDefensePower() / 50 + 2;
-
-	return static_cast<int>(baseDamage * typeEffectiveness * stab);
-}
-
-float Pokemon::calculateTypeEffectiveness(Type moveType, Pokemon& target)
-{
-	Type attackType = moveType;
-	Type defenderType1 = target.getPrimaryType();
-	Type defenderType2 = target.getSecondaryType();
-
-	float effectiveness = 1.0f;
-
-	effectiveness *= getTypeEffectiveness(attackType, defenderType1);
-	// Check if the defender has a secondary type
-	if (defenderType2 != Type::NONE) {
-		effectiveness *= getTypeEffectiveness(attackType, defenderType2);
-	}
-
-	return effectiveness;
-
-}
-
-float Pokemon::getTypeEffectiveness(Type attackType, Type defenderType) {
-	// Effectiveness chart represented as a 2D array
-	// 2.0 = super effective, 1.0 = normal effectiveness, 0.5 = not very effective, 0.0 = no effect
-
-	// Initialize all matchups to 1.0 (normal effectiveness)
-	static const float typeChart[18][18] = {
-		// NOR  FIR  WAT  ELE  GRA  ICE  FIG  POI  GRO  FLY  PSY  BUG  ROC  GHO  DRA  DAR  STE  FAI
-		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.5f, 1.0f}, // NORMAL
-		{1.0f, 0.5f, 0.5f, 1.0f, 2.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 0.5f, 1.0f, 2.0f, 1.0f}, // FIRE
-		{1.0f, 2.0f, 0.5f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f}, // WATER
-		{1.0f, 1.0f, 2.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f}, // ELECTRIC
-		{1.0f, 0.5f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f, 0.5f, 2.0f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 0.5f, 1.0f, 0.5f, 1.0f}, // GRASS
-		{1.0f, 0.5f, 0.5f, 1.0f, 2.0f, 0.5f, 1.0f, 1.0f, 2.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f}, // ICE
-		{2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 0.5f, 0.5f, 0.5f, 2.0f, 0.0f, 1.0f, 2.0f, 2.0f, 0.5f}, // FIGHTING
-		{1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 2.0f}, // POISON
-		{1.0f, 2.0f, 1.0f, 2.0f, 0.5f, 1.0f, 1.0f, 2.0f, 1.0f, 0.0f, 1.0f, 0.5f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f}, // GROUND
-		{1.0f, 1.0f, 1.0f, 0.5f, 2.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f}, // FLYING
-		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.5f, 1.0f}, // PSYCHIC
-		{1.0f, 0.5f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 1.0f, 0.5f, 1.0f, 2.0f, 0.5f, 0.5f}, // BUG
-		{1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f}, // ROCK
-		{0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f}, // GHOST
-		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 0.0f}, // DRAGON
-		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 0.5f}, // DARK
-		{1.0f, 0.5f, 0.5f, 0.5f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 0.5f, 2.0f}, // STEEL
-		{1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 0.5f, 1.0f}  // FAIRY
-	};
-	// https://pokemondb.net/type - Effectiveness chart
-	// I used claude to generate the table aint no way im doing all that lol
-	// Return the appropriate effectiveness value from the chart
-	return typeChart[static_cast<int>(attackType)][static_cast<int>(defenderType)];
-}
 
 void Pokemon::setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath, const std::string& movesJsonPath)
 {
@@ -138,6 +81,30 @@ void Pokemon::setupPokemon(Pokemon* pokemon, const std::string& pokemonFilePath,
 
 		if (data.contains("secondaryType")) {
 			pokemon->setSecondaryType(stringToType(data["secondaryType"]));
+		}
+
+		// Scale and set the Pokemon's stats based on level
+		if (data.contains("baseStats")) {
+			int level = pokemon->getLevel();
+
+			// Get base stats from JSON
+			int baseHP = data["baseStats"]["hp"];
+			int baseAttack = data["baseStats"]["attack"];
+			int baseDefense = data["baseStats"]["defense"];
+			int baseSpeed = data["baseStats"]["speed"];
+
+			// Scale stats based on level (increase by 2 per level)
+			int scaledHP = baseHP + (level - 1) * 2;
+			int scaledAttack = baseAttack + (level - 1) * 2;
+			int scaledDefense = baseDefense + (level - 1) * 2;
+			int scaledSpeed = baseSpeed + (level - 1) * 2;
+
+			// Set the scaled stats to the Pokemon
+			pokemon->setMaxHealth(scaledHP);
+			pokemon->setHealth(scaledHP); // Also set current HP to max
+			pokemon->setAttackPower(scaledAttack);
+			pokemon->setDefensePower(scaledDefense);
+			pokemon->setSpeed(scaledSpeed);
 		}
 
 		// Add the Pokemon's default moves
@@ -185,7 +152,34 @@ void Pokemon::levelUp() {
 	// Optionally: increase stats here
 }
 
-void Pokemon::printStatus() const {
-	std::cout << "Name: " << name << ", Level: " << level
-		<< ", XP: " << currentXP << " / " << xpToNextLevel << "\n";
+bool Pokemon::useMove(int index, Pokemon& target)
+{
+	Move* move = moves[index];
+
+	if (move->getPP() <= 0) {
+		std::cout << name << " doesn't have enough PP to use " << move->getName() << "!" << std::endl;
+		return false;
+	}
+
+	cout << name << " used " << move->getName() << "!" << endl;
+
+	int damage = Battle::calculateDamage(*this, *move,target);
+	target.takeDamage(damage);
+	
+	float effectiveness = Battle::calculateTypeEffectiveness(move->getType(), target);
+	if (effectiveness > 1.0f) {
+		std::cout << "It's super effective!" << std::endl;
+	}
+	else if (effectiveness < 1.0f && effectiveness > 0) {
+		std::cout << "It's not very effective..." << std::endl;
+	}
+	else if (effectiveness == 0) {
+		std::cout << "It had no effect..." << std::endl;
+	}
+
+	cout << target.getName() << " took " << damage << " damage!" << endl;
+
+	move->use();
 }
+
+
